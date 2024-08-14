@@ -11,9 +11,10 @@ const Home = () => {
   useEffect(() => {
     const fetchSmoothies = async () => {
       const { data, error } = await supabase
-        .from('recipes')
-        .select()
+        .from('smoothies')
+        .select('*')
       
+      console.log('Fetched data:', data)
       if (error) {
         setFetchError('Could not fetch the smoothies')
         setSmoothies(null)

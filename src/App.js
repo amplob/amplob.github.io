@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom"
 import Home from "./pages/Home"
 import Create from "./pages/Create"
 import Update from "./pages/Update"
+import TextBoard from "./pages/TextBoard"
 
 
 function App() {
@@ -13,10 +14,12 @@ function App() {
         <h1>Supa Smoothies</h1>
         <Link to="/">Home</Link>
         <Link to="/create">Create New Smoothie</Link>
+        <Link to="/textboard">Textboard</Link>
       </nav>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/create" element={<Create />} />
+        <Route path="/textboard" element={<TextBoard />} />
         <Route path="/:id" element={<Update />} />
       </Routes>
     </BrowserRouter>

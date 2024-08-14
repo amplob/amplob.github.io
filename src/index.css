@@ -61,3 +61,28 @@ nav h1 {
   line-height: 0px;
   text-align: center;
 }
+
+.textboard {
+  padding: 20px;
+}
+
+.entries .entry {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.new-entry {
+  display: flex;
+  margin-top: 20px;
+}
+
+.new-entry input {
+  flex: 1;
+  margin-right: 10px;
+  padding: 8px;
+}
+
+.new-entry button {
+  padding: 8px 16px;
+}
