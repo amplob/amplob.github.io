@@ -10,7 +10,7 @@ const FlagGuessingGame = () => {
   const [gameOver, setGameOver] = useState(false);
 
   useEffect(() => {
-    if (tries < 5) {
+    if (tries < 4) {
       fetchNewFlag();
     } else {
       setGameOver(true);
