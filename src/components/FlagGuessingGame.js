@@ -11,7 +11,7 @@ const FlagGuessingGame = () => {
 
   // Effect to fetch a new flag or end the game based on the number of tries
   useEffect(() => {
-    if (tries < 5) {
+    if (tries < 6) {
       fetchNewFlag(); // Fetch a new flag if the game is not over
     } else {
       setGameOver(true); // End the game if the maximum number of tries is reached
