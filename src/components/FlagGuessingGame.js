@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import supabase from '../config/supabaseClient';
 
-
 const FlagGuessingGame = () => {
   const [flag, setFlag] = useState(null);
   const [options, setOptions] = useState([]);
@@ -28,7 +27,12 @@ const FlagGuessingGame = () => {
     }
 
     const randomFlag = civs[Math.floor(Math.random() * civs.length)];
-    const shuffledOptions = shuffleArray(civs)
+
+    // Filter out the current flag to avoid repetition
+    const filteredCivs = civs.filter(civ => civ.id !== randomFlag.id);
+
+    // Select three random options from the filtered list
+    const shuffledOptions = shuffleArray(filteredCivs)
       .slice(0, 3)
       .concat(randomFlag)
       .sort(() => Math.random() - 0.5);
@@ -66,7 +70,7 @@ const FlagGuessingGame = () => {
       <div className="options">
         {options.map((option) => (
           <Button
-            key={option.id}
+            key={option.id}  // Use option.id as the key
             label={option.name}
             onClick={() => handleOptionClick(option)}
           />
