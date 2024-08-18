@@ -101,3 +101,10 @@ nav h1 {
 button {
   margin: 10px;
 }
+
+.score-tries {
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}

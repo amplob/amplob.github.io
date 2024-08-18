@@ -79,7 +79,16 @@ const FlagGuessingGame = () => {
   return (
     <div className="game">
       <h2>Guess the Civilization</h2>
+
+      {/* Display the current score and number of tries */}
+      <div className="score-tries">
+        <p>Score: {score} / {tries}</p>
+      </div>
+
+      {/* Display the flag to be guessed */}
       {flag && <img src={flag.flag_url} alt="Flag" style={{ width: '200px', height: 'auto' }} />}
+
+      {/* Display the options for the player to choose from */}
       <div className="options">
         {options.map((option) => (
           <Button
@@ -103,7 +112,7 @@ const GameOver = ({ score }) => (
   <div className="game-over">
     <h2>Game Over</h2>
     <p>Your score is {score}/5</p>
-    <button onClick={() => window.location.reload()}>Play Again</button> // Reload the page to restart the game
+    <button onClick={() => window.location.reload()}>Play Again</button> {/* Reload the page to restart the game */}
   </div>
 );
 
