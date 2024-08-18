@@ -2,65 +2,78 @@ import { useEffect, useState } from 'react';
 import supabase from '../config/supabaseClient';
 
 const FlagGuessingGame = () => {
-  const [flag, setFlag] = useState(null);
-  const [options, setOptions] = useState([]);
-  const [score, setScore] = useState(0);
-  const [tries, setTries] = useState(0);
-  const [gameOver, setGameOver] = useState(false);
+  // State variables
+  const [flag, setFlag] = useState(null); // Current flag to guess
+  const [options, setOptions] = useState([]); // Options for the player to choose from
+  const [score, setScore] = useState(0); // Player's score
+  const [tries, setTries] = useState(0); // Number of attempts
+  const [gameOver, setGameOver] = useState(false); // Whether the game is over
 
+  // Effect to fetch a new flag or end the game based on the number of tries
   useEffect(() => {
-    if (tries < 4) {
-      fetchNewFlag();
+    if (tries < 5) {
+      fetchNewFlag(); // Fetch a new flag if the game is not over
     } else {
-      setGameOver(true);
+      setGameOver(true); // End the game if the maximum number of tries is reached
     }
   }, [tries]);
 
+  // Function to fetch a new flag and options
   const fetchNewFlag = async () => {
-    const { data: civs, error } = await supabase
-      .from('civs')
-      .select('*');
+    // Fetch all civilizations from the database
+    const { data: civs, error } = await supabase.from('civs').select('*');
 
     if (error) {
-      console.error('Error fetching civs:', error);
+      console.error('Error fetching civs:', error); // Log error if fetching fails
       return;
     }
 
+    // Select a random flag from the fetched civilizations
     const randomFlag = civs[Math.floor(Math.random() * civs.length)];
 
-    // Filter out the current flag to avoid repetition
+    // Filter out the current flag to avoid repetition in options
     const filteredCivs = civs.filter(civ => civ.id !== randomFlag.id);
 
-    // Select three random options from the filtered list
-    const shuffledOptions = shuffleArray(filteredCivs)
-      .slice(0, 3)
-      .concat(randomFlag)
-      .sort(() => Math.random() - 0.5);
+    // Ensure there are enough civilizations to choose from
+    if (filteredCivs.length < 3) {
+      console.error('Not enough civilizations to choose from.'); // Log error if not enough options
+      return;
+    }
 
+    // Select three random options from the filtered list
+    const shuffledOptions = shuffleArray(filteredCivs).slice(0, 3);
+
+    // Combine the three options with the correct flag and shuffle the final list
+    const allOptions = shuffleArray([...shuffledOptions, randomFlag]);
+
+    // Update state with the new flag and options
     setFlag(randomFlag);
-    setOptions(shuffledOptions);
+    setOptions(allOptions);
   };
 
+  // Function to handle option clicks
   const handleOptionClick = (selectedOption) => {
     if (selectedOption.id === flag.id) {
-      setScore(score + 1);
-      alert('Correct!');
+      setScore(score + 1); // Increase score if the guess is correct
+      alert('Correct!'); // Notify the player
     } else {
-      alert('Incorrect!');
+      alert('Incorrect!'); // Notify the player if the guess is wrong
     }
-    setTries(tries + 1);
+    setTries(tries + 1); // Increment the number of tries
   };
 
+  // Function to shuffle an array
   const shuffleArray = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
+      [array[i], array[j]] = [array[j], array[i]]; // Swap elements
     }
     return array;
   };
 
+  // Render the game or game over screen based on the state
   if (gameOver) {
-    return <GameOver score={score} />;
+    return <GameOver score={score} />; // Show the game over screen if the game is over
   }
 
   return (
@@ -70,9 +83,9 @@ const FlagGuessingGame = () => {
       <div className="options">
         {options.map((option) => (
           <Button
-            key={option.id}  // Use option.id as the key
+            key={option.id} // Use option.id as the key for the button
             label={option.name}
-            onClick={() => handleOptionClick(option)}
+            onClick={() => handleOptionClick(option)} // Handle button click
           />
         ))}
       </div>
@@ -80,15 +93,17 @@ const FlagGuessingGame = () => {
   );
 };
 
+// Button component
 const Button = ({ label, onClick }) => (
   <button onClick={onClick}>{label}</button>
 );
 
+// GameOver component
 const GameOver = ({ score }) => (
   <div className="game-over">
     <h2>Game Over</h2>
     <p>Your score is {score}/5</p>
-    <button onClick={() => window.location.reload()}>Play Again</button>
+    <button onClick={() => window.location.reload()}>Play Again</button> // Reload the page to restart the game
   </div>
 );
 
