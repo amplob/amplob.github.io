@@ -1,0 +1,176 @@
+[
+  {
+    "name": "Roman Empire",
+    "dateIni": -27,
+    "dateEnd": 476,
+    "flag_url": "../resources/flags/roman-empire-flag.png"
+  },
+  {
+    "name": "Mongol Empire",
+    "dateIni": 1206,
+    "dateEnd": 1368,
+    "flag_url": "../resources/flags/mongol-empire-flag.png"
+  },
+  {
+    "name": "Ottoman Empire",
+    "dateIni": 1299,
+    "dateEnd": 1922,
+    "flag_url": "../resources/flags/ottoman-empire-flag.png"
+  },
+  {
+    "name": "British Empire",
+    "dateIni": 1583,
+    "dateEnd": 1997,
+    "flag_url": "../resources/flags/british-empire-flag.png"
+  },
+  {
+    "name": "Egyptian Empire",
+    "dateIni": -3100,
+    "dateEnd": -30,
+    "flag_url": "../resources/flags/egyptian-empire-flag.png"
+  },
+  {
+    "name": "Persian Empire",
+    "dateIni": -550,
+    "dateEnd": -330,
+    "flag_url": "../resources/flags/persian-empire-flag.png"
+  },
+  {
+    "name": "Macedonian Empire",
+    "dateIni": -336,
+    "dateEnd": -323,
+    "flag_url": "../resources/flags/macedonian-empire-flag.png"
+  },
+  {
+    "name": "Chinese Empire",
+    "dateIni": -221,
+    "dateEnd": 1912,
+    "flag_url": "../resources/flags/chinese-empire-flag.png"
+  },
+  {
+    "name": "Inca Empire",
+    "dateIni": 1438,
+    "dateEnd": 1533,
+    "flag_url": "../resources/flags/inca-empire-flag.png"
+  },
+  {
+    "name": "Aztec Empire",
+    "dateIni": 1428,
+    "dateEnd": 1521,
+    "flag_url": "../resources/flags/aztec-empire-flag.png"
+  },
+  {
+    "name": "Hittite Empire",
+    "dateIni": -1600,
+    "dateEnd": -1178,
+    "flag_url": "../resources/flags/hittite-empire-flag.png"
+  },
+  {
+    "name": "Assyrian Empire",
+    "dateIni": -2500,
+    "dateEnd": -609,
+    "flag_url": "../resources/flags/assyrian-empire-flag.png"
+  },
+  {
+    "name": "Byzantine Empire",
+    "dateIni": 330,
+    "dateEnd": 1453,
+    "flag_url": "../resources/flags/byzantine-empire-flag.png"
+  },
+  {
+    "name": "Sassanian Empire",
+    "dateIni": 224,
+    "dateEnd": 651,
+    "flag_url": "../resources/flags/sassanian-empire-flag.png"
+  },
+  {
+    "name": "Francois Empire",
+    "dateIni": 1815,
+    "dateEnd": 1830,
+    "flag_url": "../resources/flags/francois-empire-flag.png"
+  },
+  {
+    "name": "Holy Roman Empire",
+    "dateIni": 800,
+    "dateEnd": 1806,
+    "flag_url": "../resources/flags/holy-roman-empire-flag.png"
+  },
+  {
+    "name": "Japanese Empire",
+    "dateIni": -660,
+    "dateEnd": 1947,
+    "flag_url": "../resources/flags/japanese-empire-flag.png"
+  },
+  {
+    "name": "Hannibal's Carthage",
+    "dateIni": -814,
+    "dateEnd": -146,
+    "flag_url": "../resources/flags/carthage-flag.png"
+  },
+  {
+    "name": "Maurya Empire",
+    "dateIni": -322,
+    "dateEnd": -185,
+    "flag_url": "../resources/flags/maurya-empire-flag.png"
+  },
+  {
+    "name": "Goryeo Dynasty",
+    "dateIni": 918,
+    "dateEnd": 1392,
+    "flag_url": "../resources/flags/goryeo-dynasty-flag.png"
+  },
+  {
+    "name": "Joseon Dynasty",
+    "dateIni": 1392,
+    "dateEnd": 1910,
+    "flag_url": "../resources/flags/joseon-dynasty-flag.png"
+  },
+  {
+    "name": "Ming Dynasty",
+    "dateIni": 1368,
+    "dateEnd": 1644,
+    "flag_url": "../resources/flags/ming-dynasty-flag.png"
+  },
+  {
+    "name": "Qing Dynasty",
+    "dateIni": 1644,
+    "dateEnd": 1912,
+    "flag_url": "../resources/flags/qing-dynasty-flag.png"
+  },
+  {
+    "name": "Seljuk Empire",
+    "dateIni": 1037,
+    "dateEnd": 1194,
+    "flag_url": "../resources/flags/seljuk-empire-flag.png"
+  },
+  {
+    "name": "Khmer Empire",
+    "dateIni": 802,
+    "dateEnd": 1431,
+    "flag_url": "../resources/flags/khmer-empire-flag.png"
+  },
+  {
+    "name": "Maratha Empire",
+    "dateIni": 1674,
+    "dateEnd": 1818,
+    "flag_url": "../resources/flags/maratha-empire-flag.png"
+  },
+  {
+    "name": "Silla Kingdom",
+    "dateIni": -57,
+    "dateEnd": 935,
+    "flag_url": "../resources/flags/silla-kingdom-flag.png"
+  },
+  {
+    "name": "Medieval Kingdom of Scotland",
+    "dateIni": 843,
+    "dateEnd": 1707,
+    "flag_url": "../resources/flags/scotland-kingdom-flag.png"
+  },
+  {
+    "name": "Caliphate of Cordoba",
+    "dateIni": 929,
+    "dateEnd": 1031,
+    "flag_url": "../resources/flags/cordoba-caliphate-flag.png"
+  }
+]

@@ -1,15 +1,11 @@
-import supabase from './supabaseClient';
-
+const supabase = require('./supabaseClient');
 const fs = require('fs');
 const path = require('path');
-
-// Initialize Supabase client
-const supabase = createClient('https://your-project-url.supabase.co', 'public-anon-key');
 
 // Function to read JSON file and insert data
 const insertData = async () => {
   // Read JSON file
-  const filePath = path.join(__dirname, 'src/resources/civsGpt.json');
+  const filePath = path.join(__dirname, '../resources/civsGpt.json');
   const fileData = fs.readFileSync(filePath, 'utf8');
   const civilizations = JSON.parse(fileData);
 
