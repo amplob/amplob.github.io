@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.2ac752bd.css",
-    "main.js": "/static/js/main.92186965.js",
-    "static/js/255.2d1e5f24.chunk.js": "/static/js/255.2d1e5f24.chunk.js",
-    "index.html": "/index.html",
-    "main.2ac752bd.css.map": "/static/css/main.2ac752bd.css.map",
-    "main.92186965.js.map": "/static/js/main.92186965.js.map",
-    "255.2d1e5f24.chunk.js.map": "/static/js/255.2d1e5f24.chunk.js.map"
+    "main.css": "/amplob.github.io/static/css/main.2ac752bd.css",
+    "main.js": "/amplob.github.io/static/js/main.dfe835df.js",
+    "static/js/38.1ad66968.chunk.js": "/amplob.github.io/static/js/38.1ad66968.chunk.js",
+    "index.html": "/amplob.github.io/index.html",
+    "main.2ac752bd.css.map": "/amplob.github.io/static/css/main.2ac752bd.css.map",
+    "main.dfe835df.js.map": "/amplob.github.io/static/js/main.dfe835df.js.map",
+    "38.1ad66968.chunk.js.map": "/amplob.github.io/static/js/38.1ad66968.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.2ac752bd.css",
-    "static/js/main.92186965.js"
+    "static/js/main.dfe835df.js"
   ]
 }
