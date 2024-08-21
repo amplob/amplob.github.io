@@ -1,4 +1,4 @@
-import { createClient } from '@supabase/supabase-js';
+const { createClient } = require('@supabase/supabase-js');
 
 // CRA automatically injects environment variables prefixed with REACT_APP_ into process.env
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
@@ -10,4 +10,4 @@ if (!supabaseUrl || !supabaseAnonKey) {
 
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-export default supabase;
+module.exports = supabase;

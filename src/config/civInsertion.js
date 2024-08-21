@@ -1,3 +1,4 @@
+require('dotenv').config();
 const supabase = require('./supabaseClient');
 const fs = require('fs');
 const path = require('path');
