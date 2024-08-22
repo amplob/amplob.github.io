@@ -38,9 +38,9 @@ button:hover {
   text-align: center;
 }
 
-.dates {
-  display: inline;
-  margin: 10px;
+.dates p{
+  display: inline-block;
+  margin-right: 15px;
 }
 
 .flag-image {
