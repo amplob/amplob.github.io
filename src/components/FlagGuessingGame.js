@@ -79,10 +79,10 @@ const FlagGuessingGame = () => {
       </div>
       {flag && (
         <div>
-          <img src={flag.flag_url} alt={flag.flag_url} style={{ width: '200px', height: 'auto' }} />
+          <img src={flag.flag_url} alt={flag.flag_url} className="flag-image" />
           <div className="dates">
-            <p>Founded: {formatDate(flag.dateIni)}</p>
-            <p>Fell: {formatDate(flag.dateEnd)}</p>
+            <p>Rise: {formatDate(flag.dateIni)}</p>
+            <p>Fall: {formatDate(flag.dateEnd)}</p>
           </div>
         </div>
       )}

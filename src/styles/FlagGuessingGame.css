@@ -37,3 +37,13 @@ button:hover {
   font-weight: bold;
   text-align: center;
 }
+
+.dates {
+  display: inline;
+  margin: 10px;
+}
+
+.flag-image {
+  width: auto;
+  height: 200px;
+}
