@@ -21,8 +21,7 @@ const Home = () => {
 
   return (
     <div className="page home">
-      <h1>Welcome to Supa Smoothies</h1>
-      <button onClick={handleGoogleSignIn}>Sign in with Google</button>
+      {/* <button onClick={handleGoogleSignIn}>Sign in with Google</button> */}
       {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>
   );

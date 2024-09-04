@@ -15,7 +15,7 @@ function App() {
         <Link to="/">Home</Link>
         <Link to="/textboard">Textboard</Link>
         <Link to="/flag-game">Flag Guessing Game</Link>
-        <Link to="/graph-game">Graph Game</Link>
+        {/* <Link to="/graph-game">Graph Game</Link> */}
         <Link to="/phaser-game">Phaser Game</Link>
       </nav>
       <Routes>

@@ -26,16 +26,23 @@ const TextBoard = () => {
 
   const addEntry = async () => {
     if (newEntry.trim() === '') return;
-
+  
+    const optimisticEntry = { id: Date.now(), text: newEntry }; // Create a temporary entry
+  
+    setEntries([...entries, optimisticEntry]); // Update UI immediately
+    setNewEntry('');
+  
     const { data, error } = await supabase
       .from('textboard')
       .insert([{ text: newEntry }]);
-
+  
     if (error) {
       console.error('Error adding entry:', error);
-    } else {
-      setEntries([...entries, ...data]);
-      setNewEntry('');
+      // Optionally, revert the UI change or show an error message
+      setEntries(entries.filter(entry => entry.id !== optimisticEntry.id));
+    } else if (data) {
+      // Replace the optimistic entry with the real one if needed
+      setEntries(entries.map(entry => (entry.id === optimisticEntry.id ? data[0] : entry)));
     }
   };
 
