@@ -9,7 +9,7 @@ export default class FireButton {
     this.fireCooldown = false;
     this.fireCooldownProgress = 0;
 
-    this.button = scene.add.sprite(position.x, position.y, 'fireButton').setScale(0.1).setInteractive();
+    this.button = scene.add.sprite(position.x, position.y, 'fireButton').setScale(0.16).setInteractive();
     this.button.on('pointerdown', () => {
       if (!this.fireCooldown) {
         this.onFireCallback();  // Execute the fire action
@@ -24,7 +24,7 @@ export default class FireButton {
     this.button.setTint(0x888888);
 
     this.scene.time.addEvent({
-      delay: 80,  // Update every 80ms
+      delay: 60,  // Update every 60ms*100= 6s
       callback: () => {
         this.fireCooldownProgress += 1;
         this.drawCooldownArc();
@@ -34,16 +34,16 @@ export default class FireButton {
           this.cooldownGraphics.clear();
         }
       },
-      repeat: 99,  // Repeat 99 times to complete the 8000ms cooldown
+      repeat: 99,  // Repeat 99 times means its executed 100 times
     });
   }
 
   drawCooldownArc() {
-    const radius = 30;
+    const radius = 20;
     this.cooldownGraphics.clear();
-    this.cooldownGraphics.lineStyle(3, 0x888888, 1);
+    this.cooldownGraphics.lineStyle(3, 0x880000, 1);
     this.cooldownGraphics.beginPath();
-    this.cooldownGraphics.arc(this.position.x, this.position.y, radius, Phaser.Math.DegToRad(-90), Phaser.Math.DegToRad((360 * this.fireCooldownProgress / 100) - 90), false);
+    this.cooldownGraphics.arc(this.position.x, this.position.y+4, radius, Phaser.Math.DegToRad(-90), Phaser.Math.DegToRad((360 * this.fireCooldownProgress / 100) - 90), false);
     this.cooldownGraphics.strokePath();
   }
 }

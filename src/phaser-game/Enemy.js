@@ -1,31 +1,32 @@
-// src/phaser-game/Soldier.js
-
 import Phaser from 'phaser';
 
-export default class Soldier {
+export default class Enemy {
   constructor(scene, x, y, type) {
     this.scene = scene;
     this.x = x;
     this.y = y;
     this.type = type;
 
-    // Define soldier properties based on type
+    // Define enemy properties based on type
     this.hp = type.hp;
     this.attack = type.attack;
     this.bounceBackValue = type.bounceBack;
 
-    // Create soldier sprite
+    // Create enemy sprite using the imageKey from the enemy type
     this.sprite = scene.add.sprite(x, y, type.imageKey).setScale(0.05);
 
     // Create health bar
     this.healthBar = scene.add.graphics();
     this.updateHealthBar();
     
-    // Track soldier in the scene
-    scene.soldiers.push(this);
+    // Track enemy in the scene
+    if (!scene.enemies) {
+      scene.enemies = []; // Initialize enemies array if not already present
+    }
+    scene.enemies.push(this);
   }
 
-  // Update the soldier's health bar
+  // Update the enemy's health bar
   updateHealthBar() {
     this.healthBar.clear();
     this.healthBar.fillStyle(0x00ff00, 1);
@@ -40,23 +41,26 @@ export default class Soldier {
     if (this.hp <= 0) {
       this.healthBar.destroy();
       this.sprite.destroy();
-      return true; // Soldier is dead
+      this.scene.handleEnemyDeath(this); 
+      return true; // Enemy is dead
     }
 
-    return false; // Soldier is still alive
+    return false; // Enemy is still alive
   }
 
-  // Move soldier towards the dragon
+  // Move enemy towards the dragon
   moveTowards(targetX) {
-    if (this.sprite.x > targetX + 50) {
-      this.sprite.x -= 1;
+    if (this.sprite && this.sprite.x > targetX + 50) {
+      this.sprite.x -= 1; // Adjust movement speed as needed
       this.updateHealthBar();
     }
   }
 
-  // Bounce soldier back
+  // Bounce enemy back
   bounceBack() {
-    this.sprite.x -= this.bounceBackValue;
-    this.updateHealthBar();
+    if (this.sprite) {
+      this.sprite.x -= this.bounceBackValue;
+      this.updateHealthBar();
+    }
   }
 }

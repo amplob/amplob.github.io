@@ -1,4 +1,4 @@
-export const SoldierTypes = {
+export const EnemyTypes = {
     type1: {
       imageKey: 'soldier',
       hp: 40,
