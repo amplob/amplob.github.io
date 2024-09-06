@@ -11,6 +11,7 @@ export default class Enemy {
     this.hp = type.hp;
     this.attack = type.attack;
     this.bounceBackValue = type.bounceBack;
+    this.loot= type.loot;
 
     // Create enemy sprite using the imageKey from the enemy type
     this.sprite = scene.add.sprite(x, y, type.imageKey).setScale(0.05);
@@ -41,12 +42,13 @@ export default class Enemy {
     if (this.hp <= 0) {
       this.healthBar.destroy();
       this.sprite.destroy();
-      this.scene.handleEnemyDeath(this); 
+      this.scene.handleEnemyDeath(this); // Call the scene's handleEnemyDeath method
       return true; // Enemy is dead
     }
 
     return false; // Enemy is still alive
   }
+
 
   // Move enemy towards the dragon
   moveTowards(targetX) {

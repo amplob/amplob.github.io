@@ -8,9 +8,9 @@ export default class Dragon {
 
     // Add Dragon sprite
     this.sprite = scene.add.sprite(x, y, 'dragon').setScale(0.1);
-    this.hp = 100;
-    this.attack = 20;
-    this.fireballAttack = 8;
+    this.hp = 1000;
+    this.attack = 200;
+    this.fireballAttack = 80;
 
     // Health UI
     this.heartIcon = scene.add.image(x - 10, y - 100, 'heart').setScale(0.05);

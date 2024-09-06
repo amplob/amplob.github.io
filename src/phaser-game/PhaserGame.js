@@ -1,38 +1,25 @@
 import React, { useEffect, useRef } from 'react';
 import Phaser from 'phaser';
-import Enemy from './Enemy'; // Change Soldier to Enemy
-import { EnemyTypes } from './EnemyTypes'; // SoldierTypes could still remain the same
+import Enemy from './Enemy';
 import Dragon from './Dragon';
 import FireButton from './FireButton';
-import {WaveButton} from './WaveButton';
+import { Wave } from './Wave';
+import { EnemyTypes } from './EnemyTypes';
+import { WAVES } from './WavesData';
 
 const PhaserGame = () => {
   const gameContainerRef = useRef(null);
 
   const DRAGON_POSITION = { x: 100, y: 600 };
-  const ENEMY_SPAWN_Y = 600; // Rename SOLDIER_SPAWN_Y to ENEMY_SPAWN_Y
   const FIRE_BUTTON_POSITION = { x: 120, y: 680 };
   const WAVE_BUTTON_POSITION = { x: 750, y: 650 };
   const GOLD_INDICATOR_POSITION = { x: 90, y: 465 };
-  const WAVES = [
-    [
-      { type: EnemyTypes.type1, count: 2 },
-    ],
-    [
-      { type: EnemyTypes.type1, count: 5 },
-    ],
-    [
-      { type: EnemyTypes.type1, count: 8 },
-    ],
-    // Add more waves as needed
-  ];
-
-  let currentWaveIndex = 0;
 
   const init = function () {
-    this.enemies = []; // Change soldiers to enemies
+    this.enemies = [];
     this.gold = 0;
     this.waveInProgress = false;
+    this.currentWaveIndex = 0;
   };
 
   const preload = function () {
@@ -52,105 +39,52 @@ const PhaserGame = () => {
 
   const create = function () {
     this.add.image(400, 400, 'background');
-
+  
     // Create Dragon instance
     const dragon = new Dragon(this, DRAGON_POSITION.x, DRAGON_POSITION.y);
-
+  
     // Create FireButton instance
     const fireButton = new FireButton(this, FIRE_BUTTON_POSITION, () => {
       dragon.fireballAttackOnEnemies(this.enemies); // Change soldiers to enemies
     });
-
-    // Create WaveButton instance
-    const waveButton = new WaveButton(this, WAVE_BUTTON_POSITION, () => {
-      startNextWave.call(this);
-    });
-
-    waveButton.updateWaveInfo(WAVES[currentWaveIndex]);
-
+  
+    // Create Wave instance
+    const wave = new Wave(this, WAVE_BUTTON_POSITION, WAVES);
+    wave.updateWaveInfo();
+  
     // Create gold indicator
-    const goldIcon = this.add.image(GOLD_INDICATOR_POSITION.x, GOLD_INDICATOR_POSITION.y, 'gold').setScale(0.05);
+    this.add.image(GOLD_INDICATOR_POSITION.x, GOLD_INDICATOR_POSITION.y, 'gold').setScale(0.05);
     const goldText = this.add.text(GOLD_INDICATOR_POSITION.x + 20, GOLD_INDICATOR_POSITION.y - 10, '0', { fontSize: '20px', fill: '#fff' });
-
+  
     this.updateGold = (amount) => {
       this.gold += amount;
       goldText.setText(this.gold);
     };
-
+  
+    // Assign dragon, wave, and gold UI elements to the scene object
     this.dragon = dragon;
     this.goldText = goldText;
-    this.waveButton = waveButton;
-    this.handleEnemyDeath = handleEnemyDeath.bind(this); // Change to handleEnemyDeath
-
-  };
-
-  const startNextWave = function () {
-    if (this.waveInProgress) return;
+    this.wave = wave;
   
-    this.waveInProgress = true;
-    const wave = WAVES[currentWaveIndex].map(enemyData => ({ ...enemyData })); // Create a deep copy of the wave data
-  
-    let totalEnemiesInWave = 0;
-    wave.forEach(enemyData => {
-      totalEnemiesInWave += enemyData.count;
-    });
-  
-    this.enemiesRemaining = totalEnemiesInWave;
-    this.enemiesToSpawn = totalEnemiesInWave; // Track how many enemies need to spawn
-  
-    this.time.addEvent({
-      delay: 1000,
-      callback: () => {
-        // Ensure wave has enemies left to spawn
-        if (this.enemiesToSpawn > 0 && wave.length > 0) {
-          const enemyData = wave[0];  // Get the current enemy type
-          if (enemyData && enemyData.count > 0) {
-            const enemy = new Enemy(this, 800, ENEMY_SPAWN_Y, enemyData.type);
-            this.enemies.push(enemy); // Add the enemy to the enemies array
-            enemyData.count--; // Decrement the count of remaining enemies to spawn
-            this.enemiesToSpawn--; // Decrement the total enemies to spawn
-          }
-  
-          // Once this enemy type's count reaches 0, shift to the next type
-          if (enemyData && enemyData.count <= 0) {
-            wave.shift(); // Move to the next type of enemy if needed
-          }
-        }
-  
-        // Check if all enemies in the wave are defeated
-        if (this.enemiesRemaining <= 0 && this.enemiesToSpawn <= 0) {
-          this.waveInProgress = false;
-          currentWaveIndex = (currentWaveIndex + 1) % WAVES.length;
-          this.waveButton.setVisible(true);
-          this.waveButton.updateWaveInfo(WAVES[currentWaveIndex]);
-        }
-      },
-      loop: true,
-    });
-  
-    this.waveButton.setVisible(false);
+    // Bind the handleEnemyDeath function to this scene
+    this.handleEnemyDeath = function(enemy) {
+      // Remove the enemy from the enemies array
+      this.enemies = this.enemies.filter(e => e !== enemy);
+      
+      // Award gold for killing an enemy
+      this.updateGold(10);
+    
+      // Decrement the remaining enemy count
+      this.enemiesRemaining--;
+    
+      // If no enemies are left and no more need to spawn, show the wave button
+      if (this.enemiesRemaining <= 0 && this.enemiesToSpawn <= 0) {
+        this.waveInProgress = false;
+        this.wave.button.setVisible(true); // Make sure the button reappears
+      }
+    };
   };
   
-  
-  
-  
-  function handleEnemyDeath(enemy) {
-    // Remove the enemy from the enemies array
-    this.enemies = this.enemies.filter(e => e !== enemy);
-    this.updateGold(10); // Award gold for killing an enemy
-  
-    // Decrement the remaining enemy count
-    this.enemiesRemaining--;
-  
-    // If no enemies are left and no more need to spawn, show the wave button
-    if (this.enemiesRemaining <= 0 && this.enemiesToSpawn <= 0) {
-      this.waveButton.setVisible(true);
-      this.waveButton.updateWaveInfo(WAVES[currentWaveIndex]);
-    }
-  }
-  
-  
-
   const update = function () {
     const { enemies, dragon } = this;
   
