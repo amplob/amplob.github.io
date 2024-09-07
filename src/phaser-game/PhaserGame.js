@@ -6,6 +6,9 @@ import FireButton from './FireButton';
 import { Wave } from './Wave';
 import { EnemyTypes } from './EnemyTypes';
 import { WAVES } from './WavesData';
+import { TurnManager } from './TurnManager';
+import Village from './Village';
+import ResourceManager from './ResourceManager';
 
 const PhaserGame = () => {
   const gameContainerRef = useRef(null);
@@ -39,6 +42,17 @@ const PhaserGame = () => {
 
   const create = function () {
     this.add.image(400, 400, 'background');
+
+    // Initialize Dragon, ResourceManager, and Village
+    this.resourceManager = new ResourceManager(this);
+    this.dragon = new Dragon(this, DRAGON_POSITION.x, DRAGON_POSITION.y);
+    this.village = new Village(this);
+    
+    // Initialize TurnManager to control game flow
+    this.turnManager = new TurnManager(this);
+
+    // Start the first turn
+    this.turnManager.startTurn();
   
     // Create Dragon instance
     const dragon = new Dragon(this, DRAGON_POSITION.x, DRAGON_POSITION.y);
@@ -130,14 +144,22 @@ const PhaserGame = () => {
         create,
         update,
       },
+      physics: {
+        default: 'arcade',
+        arcade: {
+          debug: false,  // Optional: Set to true for debugging
+          gravity: { y: 0 }, // No gravity for the dragon or enemies
+        },
+      },
     };
-
+  
     const game = new Phaser.Game(config);
-
+  
     return () => {
-      game.destroy(true);
+      game.destroy(true);  // Clean up when component is unmounted
     };
   }, []);
+  
 
   return (
     <div>
