@@ -13,10 +13,19 @@ import ResourceManager from './ResourceManager';
 const PhaserGame = () => {
   const gameContainerRef = useRef(null);
 
-  const DRAGON_POSITION = { x: 100, y: 600 };
-  const FIRE_BUTTON_POSITION = { x: 120, y: 680 };
-  const WAVE_BUTTON_POSITION = { x: 750, y: 650 };
-  const GOLD_INDICATOR_POSITION = { x: 90, y: 465 };
+  const ORIGINAL_SCREEN_WIDTH = 955;
+  const ORIGINAL_SCREEN_HEIGHT = 730;
+
+  const currentScreenWidth = window.innerWidth;
+  const currentScreenHeight = window.innerHeight;
+
+  const scaleX = currentScreenWidth / ORIGINAL_SCREEN_WIDTH;
+  const scaleY = currentScreenHeight / ORIGINAL_SCREEN_HEIGHT;
+
+  const DRAGON_POSITION = { x: 100 * scaleX, y: 600 * scaleY };
+  const FIRE_BUTTON_POSITION = { x: 120 * scaleX, y: 680 * scaleY };
+  const WAVE_BUTTON_POSITION = { x: 450 * scaleX, y: 450 * scaleY };
+  const GOLD_INDICATOR_POSITION = { x: 90 * scaleX, y: 465 * scaleY };
 
   const init = function () {
     this.enemies = [];
@@ -28,16 +37,19 @@ const PhaserGame = () => {
   const preload = function () {
     this.load.image('background', '/phaser-game/assets/background.png');
     this.load.image('dragon', '/phaser-game/assets/dragon.png');
-    this.load.image('enemy', '/phaser-game/assets/soldier.png'); // Keep enemy sprite
-    // Load the images for each enemy type based on the imageKey
-  Object.values(EnemyTypes).forEach(type => {
-    this.load.image(type.imageKey, `/phaser-game/assets/${type.imageKey}.png`);
-  });
+    // Load spritesheets for enemy types
+    Object.values(EnemyTypes).forEach(type => {
+      this.load.spritesheet(type.imageKey, `/phaser-game/assets/${type.imageKey}Sprite.png`, { 
+        frameWidth: 102,  // Width of each frame
+        frameHeight: 128  // Height of each frame
+      });
+    });
     this.load.image('fireButton', '/phaser-game/assets/fire.png');
+    this.load.image('fireball', '/phaser-game/assets/fireball.png');
     this.load.image('heart', '/phaser-game/assets/heart.png');
     this.load.image('sword', '/phaser-game/assets/sword.png');
     this.load.image('waveButton', '/phaser-game/assets/waveIcon.png');
-    this.load.image('gold', '/phaser-game/assets/gold.png'); // Load gold.png for the gold indicator
+    this.load.image('gold', '/phaser-game/assets/gold.png');
   };
 
   const create = function () {
@@ -50,72 +62,61 @@ const PhaserGame = () => {
     
     // Initialize TurnManager to control game flow
     this.turnManager = new TurnManager(this);
-
-    // Start the first turn
     this.turnManager.startTurn();
-  
-    // Create Dragon instance
-    const dragon = new Dragon(this, DRAGON_POSITION.x, DRAGON_POSITION.y);
-  
+
     // Create FireButton instance
     const fireButton = new FireButton(this, FIRE_BUTTON_POSITION, () => {
-      dragon.fireballAttackOnEnemies(this.enemies); // Change soldiers to enemies
+      this.dragon.fireballAttack();
     });
-  
-    // Create Wave instance
-    const wave = new Wave(this, WAVE_BUTTON_POSITION, WAVES);
-    wave.updateWaveInfo();
-  
+
+    // Create and assign Wave instance to the scene
+    this.wave = new Wave(this, WAVE_BUTTON_POSITION, WAVES);
+    this.wave.updateWaveInfo();
+
     // Create gold indicator
     this.add.image(GOLD_INDICATOR_POSITION.x, GOLD_INDICATOR_POSITION.y, 'gold').setScale(0.05);
     const goldText = this.add.text(GOLD_INDICATOR_POSITION.x + 20, GOLD_INDICATOR_POSITION.y - 10, '0', { fontSize: '20px', fill: '#fff' });
-  
+
     this.updateGold = (amount) => {
       this.gold += amount;
       goldText.setText(this.gold);
     };
-  
-    // Assign dragon, wave, and gold UI elements to the scene object
-    this.dragon = dragon;
-    this.goldText = goldText;
-    this.wave = wave;
-  
-    // Bind the handleEnemyDeath function to this scene
+
+    // Create animations for each enemy type
+    Object.values(EnemyTypes).forEach(type => {
+      this.anims.create({
+        key: `${type.imageKey}_walk`,
+        frames: this.anims.generateFrameNumbers(type.imageKey, { start: 0, end: 7 }), // Total of 8 frames
+        frameRate: 10,
+        repeat: -1
+      });
+    });
+
     this.handleEnemyDeath = function(enemy) {
-      // Remove the enemy from the enemies array
       this.enemies = this.enemies.filter(e => e !== enemy);
-      
-      // Award gold for killing an enemy
       this.updateGold(10);
-    
-      // Decrement the remaining enemy count
       this.enemiesRemaining--;
-    
-      // If no enemies are left and no more need to spawn, show the wave button
       if (this.enemiesRemaining <= 0 && this.enemiesToSpawn <= 0) {
         this.waveInProgress = false;
-        this.wave.button.setVisible(true); // Make sure the button reappears
+        this.wave.button.setVisible(true);
       }
     };
   };
-  
+
   const update = function () {
     const { enemies, dragon } = this;
   
-    // Check if dragon exists
     if (!dragon) {
       console.error('Dragon is not initialized');
       return;
     }
-  
-    // Check if enemies array is defined and not empty
+
     if (Array.isArray(enemies) && enemies.length > 0) {
       enemies.forEach(enemy => {
         if (enemy && enemy.sprite) {
-          enemy.moveTowards(dragon.x);
-  
-          if (enemy.sprite.x <= dragon.x + 50) {
-            dragon.attackEnemy(enemy); // Change attackSoldier to attackEnemy
+          enemy.moveTowards(dragon.sprite.x);
+          if (enemy.sprite.x <= dragon.sprite.x + 50) {
+            dragon.attackEnemy(enemy);
             dragon.takeDamage(enemy.type.attack);
             if (enemy.hp > 0) {
               enemy.bounceBack();
@@ -125,7 +126,6 @@ const PhaserGame = () => {
       });
     }
     
-    // Check if dragon has hp property
     if (dragon.hp <= 0) {
       this.add.text(300, 400, 'Game Over', { fontSize: '50px', fill: '#ff0000' });
       this.scene.pause();
@@ -147,19 +147,18 @@ const PhaserGame = () => {
       physics: {
         default: 'arcade',
         arcade: {
-          debug: false,  // Optional: Set to true for debugging
-          gravity: { y: 0 }, // No gravity for the dragon or enemies
+          debug: false,
+          gravity: { y: 0 },
         },
       },
     };
-  
+
     const game = new Phaser.Game(config);
-  
+
     return () => {
-      game.destroy(true);  // Clean up when component is unmounted
+      game.destroy(true);
     };
   }, []);
-  
 
   return (
     <div>
