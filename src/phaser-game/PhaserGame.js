@@ -13,14 +13,29 @@ import ResourceManager from './ResourceManager';
 const PhaserGame = () => {
   const gameContainerRef = useRef(null);
 
-  const ORIGINAL_SCREEN_WIDTH = 955;
-  const ORIGINAL_SCREEN_HEIGHT = 730;
+  const ORIGINAL_SCREEN_WIDTH = 1200;
+  const ORIGINAL_SCREEN_HEIGHT = 800;
+  const ASPECT_RATIO = 3 / 2;  // 3:2 aspect ratio
 
-  const currentScreenWidth = window.innerWidth;
-  const currentScreenHeight = window.innerHeight;
+  const calculateGameSize = () => {
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
 
-  const scaleX = currentScreenWidth / ORIGINAL_SCREEN_WIDTH;
-  const scaleY = currentScreenHeight / ORIGINAL_SCREEN_HEIGHT;
+    let gameWidth = screenWidth;
+    let gameHeight = screenWidth / ASPECT_RATIO;
+
+    if (gameHeight > screenHeight) {
+      gameHeight = screenHeight;
+      gameWidth = screenHeight * ASPECT_RATIO;
+    }
+
+    return { gameWidth, gameHeight };
+  };
+
+  const { gameWidth, gameHeight } = calculateGameSize();
+
+  const scaleX = gameWidth / ORIGINAL_SCREEN_WIDTH;
+  const scaleY = gameHeight / ORIGINAL_SCREEN_HEIGHT;
 
   const DRAGON_POSITION = { x: 100 * scaleX, y: 600 * scaleY };
   const FIRE_BUTTON_POSITION = { x: 120 * scaleX, y: 680 * scaleY };
@@ -53,7 +68,9 @@ const PhaserGame = () => {
   };
 
   const create = function () {
-    this.add.image(400, 400, 'background');
+    // Add the background and resize it to fill the game screen
+    const background = this.add.image(0, 0, 'background').setOrigin(0, 0);  // Set the origin to the top-left corner
+    background.setDisplaySize(this.scale.width, this.scale.height);  // Resize the background to fit the screen
 
     // Initialize Dragon, ResourceManager, and Village
     this.resourceManager = new ResourceManager(this);
@@ -135,8 +152,8 @@ const PhaserGame = () => {
   useEffect(() => {
     const config = {
       type: Phaser.AUTO,
-      width: 800,
-      height: 800,
+      width: gameWidth,
+      height: gameHeight,
       parent: gameContainerRef.current,
       scene: {
         init,
@@ -151,6 +168,10 @@ const PhaserGame = () => {
           gravity: { y: 0 },
         },
       },
+      scale: {
+        mode: Phaser.Scale.FIT,  // Fit the game into the available space
+        autoCenter: Phaser.Scale.CENTER_BOTH,  // Center the game on the screen
+      },
     };
 
     const game = new Phaser.Game(config);
@@ -158,7 +179,7 @@ const PhaserGame = () => {
     return () => {
       game.destroy(true);
     };
-  }, []);
+  }, [gameWidth, gameHeight]);
 
   return (
     <div>
