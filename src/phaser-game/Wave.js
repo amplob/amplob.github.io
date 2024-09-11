@@ -1,7 +1,7 @@
 // Wave.js
 import Enemy from './Enemy';
 
-export class Wave {
+export default class Wave {
     constructor(scene, position, wavesData, onStartWave) {
       this.scene = scene;
       this.position = position;
@@ -45,33 +45,40 @@ export class Wave {
         this.enemyIcons.push(icon, text);
       });
     }
-  
+
     startNextWave() {
       if (this.scene.waveInProgress) return;
-  
+    
       this.scene.waveInProgress = true;
+    
+      if (!this.scene.enemies) {
+        this.scene.enemies = [];
+      }
+    
       const wave = this.wavesData[this.currentWaveIndex].map(enemyData => ({ ...enemyData }));
-  
       let totalEnemiesInWave = wave.reduce((total, enemyData) => total + enemyData.count, 0);
-  
+    
       this.scene.enemiesRemaining = totalEnemiesInWave;
       this.scene.enemiesToSpawn = totalEnemiesInWave;
-  
+    
+      const screenSetup = this.scene.screenSetup;  // Assuming you initialize this in your scene
+      const enemyPosition = screenSetup.getEnemyStartPosition();  // Get the enemy's start position
+    
       this.scene.time.addEvent({
         delay: 1000,
         callback: () => {
           if (this.scene.enemiesToSpawn > 0 && wave.length > 0) {
             const enemyData = wave[0];
             if (enemyData && enemyData.count > 0) {
-              const enemy = new Enemy(this.scene, 800, 600, enemyData.type);
+              const enemy = new Enemy(this.scene, enemyPosition.x, enemyPosition.y, enemyData.type);  // Use fixed enemy position
               this.scene.enemies.push(enemy);
               enemyData.count--;
               this.scene.enemiesToSpawn--;
             }
-  
+    
             if (enemyData.count <= 0) wave.shift();
           }
-  
+    
           if (this.scene.enemiesRemaining <= 0 && this.scene.enemiesToSpawn <= 0) {
             this.scene.waveInProgress = false;
             this.button.setVisible(true);
@@ -79,10 +86,11 @@ export class Wave {
         },
         loop: true,
       });
-  
+    
       this.button.setVisible(false);
       this.currentWaveIndex++;
     }
+    
   
     setVisible(visible) {
       this.button.setVisible(visible);
