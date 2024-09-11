@@ -10,20 +10,20 @@ export default class Enemy {
     this.hp = type.hp;
     this.attack = type.attack;
     this.bounceBackValue = type.bounceBack;
-    this.loot= type.loot;
+    this.loot = type.loot;
 
     // Create enemy sprite and add physics
-    this.sprite = scene.physics.add.sprite(x, y, type.imageKey).setScale(0.5);
+    this.sprite = scene.physics.add.sprite(x, y, type.imageKey).setScale(0.6);
     this.sprite.play(`${type.imageKey}_walk`); // Play the walking animation
 
     // Create health bar
     this.healthBar = scene.add.graphics();
     this.updateHealthBar();
     
-    if (!scene.enemies) {
-      scene.enemies = [];
+    if (!scene.gameManager.enemies) {
+      scene.gameManager.enemies = [];
     }
-    scene.enemies.push(this);
+    scene.gameManager.enemies.push(this);  // Add enemy to gameManager's enemies array
   }
 
   updateHealthBar() {
@@ -38,15 +38,18 @@ export default class Enemy {
     if (this.hp <= 0) {
       this.healthBar.destroy();
       this.sprite.destroy();
-      this.scene.handleEnemyDeath(this);
+      // Ensure the death is handled via GameManager
+      this.scene.gameManager.handleEnemyDeath(this);
       return true;
     }
     return false;
   }
 
   moveTowards(targetX) {
-    if (this.sprite && this.sprite.x > targetX + 50) {
-      this.sprite.x -= 1;
+    // Ensure the enemy moves towards the target
+    const speed = 2;
+    if (this.sprite && this.sprite.x > targetX) {
+      this.sprite.x -= speed;
       this.updateHealthBar();
     }
   }
