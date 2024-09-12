@@ -77,8 +77,10 @@ const PhaserGame = () => {
         },
       },
       scale: {
-        mode: Phaser.Scale.FIT,
-        autoCenter: Phaser.Scale.CENTER_BOTH,
+        mode: Phaser.Scale.NONE,  // Disable automatic scaling
+        width: ORIGINAL_SCREEN_WIDTH,  // Fixed width
+        height: ORIGINAL_SCREEN_HEIGHT,  // Fixed height  
+        //autoCenter: Phaser.Scale.CENTER_BOTH,
       },
     };
 

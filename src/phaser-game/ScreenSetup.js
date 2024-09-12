@@ -28,20 +28,22 @@ export default class ScreenSetup {
   
     // Ensure this is only called once, not in the update loop
     updateScreenSize() {
-      const screenWidth = window.innerWidth;
-      const screenHeight = window.innerHeight;
+    //   const screenWidth = window.innerWidth;
+    //   const screenHeight = window.innerHeight;
   
-      const aspectRatio = this.originalWidth / this.originalHeight;
-      this.gameWidth = screenWidth;
-      this.gameHeight = screenWidth / aspectRatio;
+    //   const aspectRatio = this.originalWidth / this.originalHeight;
+    //   this.gameWidth = screenWidth;
+    //   this.gameHeight = screenWidth / aspectRatio;
   
-      if (this.gameHeight > screenHeight) {
-        this.gameHeight = screenHeight;
-        this.gameWidth = screenHeight * aspectRatio;
-      }
+    //   if (this.gameHeight > screenHeight) {
+    //     this.gameHeight = screenHeight;
+    //     this.gameWidth = screenHeight * aspectRatio;
+    //   }
   
-      this.scaleX = this.gameWidth / this.originalWidth;
-      this.scaleY = this.gameHeight / this.originalHeight;
+    //   this.scaleX = this.gameWidth / this.originalWidth;
+    //   this.scaleY = this.gameHeight / this.originalHeight;
+      this.scaleX = 1;
+      this.scaleY = 1;
     }
   
     getPosition(xPercent, yPercent) {
