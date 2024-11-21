@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Función para manejar la apertura de las opciones de 'cuando' y 'sitio'
+    // Función para manejar la apertura de las opciones de filtros
     const filters = document.querySelectorAll('.filter .option-button');
 
     filters.forEach(button => {
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelector('#cuando .option-button').textContent = btn.textContent;
             document.querySelector('#cuando .option-button').classList.remove('active');
             dropdown.style.display = 'none';
-            // Aquí puedes agregar lógica para actualizar el feed de eventos
+            filterEvents();
         });
         cuandoOptions.appendChild(btn);
     }
@@ -57,10 +57,59 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelector('#sitio .option-button').textContent = sitio;
             document.querySelector('#sitio .option-button').classList.remove('active');
             sitioOptions.style.display = 'none';
-            // Aquí puedes agregar lógica para actualizar el feed de eventos
+            filterEvents();
         });
         sitioOptions.appendChild(btn);
     });
+
+    // Agregar opciones de temas
+    const temaOptions = document.getElementById('tema-options');
+    const temas = ['deporte', 'cultura', 'fiesta'];
+    temas.forEach(tema => {
+        const btn = document.createElement('button');
+        btn.textContent = capitalizeFirstLetter(tema);
+        btn.setAttribute('data-value', tema);
+        btn.addEventListener('click', () => {
+            document.querySelector('#tema .option-button').textContent = capitalizeFirstLetter(tema);
+            document.querySelector('#tema .option-button').classList.remove('active');
+            temaOptions.style.display = 'none';
+            filterEvents();
+        });
+        temaOptions.appendChild(btn);
+    });
+
+    // Función para capitalizar la primera letra de una palabra
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
+    // Función para filtrar eventos
+    function filterEvents() {
+        const cuando = document.querySelector('#cuando .option-button').getAttribute('data-value') || 'hoy';
+        const sitio = document.querySelector('#sitio .option-button').getAttribute('data-value') || 'barcelona';
+        const tema = document.querySelector('#tema .option-button').getAttribute('data-value') || 'todos';
+
+        const events = document.querySelectorAll('.event-item');
+
+        events.forEach(event => {
+            const eventTema = event.getAttribute('data-tema');
+            let isVisible = true;
+
+            // Filtrar por tema
+            if (tema !== 'todos' && eventTema !== tema) {
+                isVisible = false;
+            }
+
+            // Aquí puedes agregar más filtros como 'cuando' y 'sitio' si tienes esa información en los eventos
+            // Por ahora, solo filtramos por 'tema'
+
+            if (isVisible) {
+                event.style.display = 'block';
+            } else {
+                event.style.display = 'none';
+            }
+        });
+    }
 
     // Opcional: Cerrar dropdown al hacer clic fuera
     window.addEventListener('click', (e) => {
@@ -74,10 +123,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Función para capitalizar la primera letra de una palabra
-    function capitalizeFirstLetter(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-    }
-
-    // Aquí puedes agregar más funcionalidades para manejar el feed de eventos dinámicamente
+    // Inicializar filtros al cargar la página
+    filterEvents();
 });

@@ -18,6 +18,14 @@
             <p>Te ponemos en contacto con todo lo que está pasando.</p>
         </section>
 
+        <!-- Video de Introducción -->
+        <section class="intro-video">
+            <video controls autoplay muted loop>
+                <source src="images/intro.mp4" type="video/mp4">
+                Tu navegador no soporta el elemento de video.
+            </video>
+        </section>
+
         <!-- Sección de Filtros -->
         <section class="filters">
             <div class="filter">
@@ -39,72 +47,129 @@
                     </div>
                 </div>
             </div>
+
+            <div class="filter">
+                <label for="tema">¿Tema?</label>
+                <div class="options" id="tema">
+                    <button class="option-button active" data-value="todos">Todos</button>
+                    <div class="dropdown-content" id="tema-options">
+                        <button data-value="deporte">Deporte</button>
+                        <button data-value="cultura">Cultura</button>
+                        <button data-value="fiesta">Fiesta</button>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- Sección de Feed de Eventos -->
         <section class="event-feed" id="event-feed">
-            <!-- Evento 1 -->
-            <div class="event-item">
+            <!-- Evento 1: Concierto de Rock -->
+            <div class="event-item" data-tema="fiesta">
                 <h2>Concierto de Rock</h2>
                 <img src="images/e1.png" alt="Concierto de Rock">
                 <p class="summary">Disfruta de una noche llena de energía con las mejores bandas de rock.</p>
+                <p class="precio">Precio: 20€</p>
                 <ul class="features">
-                    <li>Entrada gratuita</li>
+                    <li>Entrada por 20€</li>
                     <li>Ubicación céntrica</li>
                     <li>Food trucks disponibles</li>
                 </ul>
+                <div class="ubicacion">
+                    <h3>Ubicación</h3>
+                    <p>Calle Falsa 123, Barcelona</p>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2993.123456789!2d2.1734!3d41.3851!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4a3456789abcd%3A0xabcdef123456789!2sCalle%20Falsa%20123%2C%200080%20Barcelona!5e0!3m2!1ses!2ses!4v1617181920!5m2!1ses!2ses"
+                        width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
                 <div class="options-comments">
                     <button>Opciones</button>
                     <button>Comentarios</button>
                 </div>
                 <div class="contact-info">
                     <h3>Contacto</h3>
-                    <p>Email: contacto@eventfinder.com</p>
-                    <p>Teléfono: +34 123 456 789</p>
+                    <p>Visita nuestro sitio web: <a href="https://www.conciertoderock.com" target="_blank">www.conciertoderock.com</a></p>
                 </div>
             </div>
 
-            <!-- Evento 2 -->
-            <div class="event-item">
+            <!-- Evento 2: Feria de Arte -->
+            <div class="event-item" data-tema="cultura">
                 <h2>Feria de Arte</h2>
                 <img src="images/e2.png" alt="Feria de Arte">
                 <p class="summary">Explora las creaciones de artistas locales e internacionales.</p>
+                <p class="precio">Precio: 15€</p>
                 <ul class="features">
-                    <li>Exposición gratuita</li>
+                    <li>Entrada por 15€</li>
                     <li>Talleres interactivos</li>
                     <li>Café artístico</li>
                 </ul>
+                <div class="ubicacion">
+                    <h3>Ubicación</h3>
+                    <p>Avenida Siempre Viva 456, Barcelona</p>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2993.987654321!2d2.1844!3d41.3961!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4a56789abcdef%3A0x123456789abcdef!2sAvenida%20Siempre%20Viva%20456%2C%200080%20Barcelona!5e0!3m2!1ses!2ses!4v1617181930!5m2!1ses!2ses"
+                        width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
                 <div class="options-comments">
                     <button>Opciones</button>
                     <button>Comentarios</button>
                 </div>
                 <div class="contact-info">
                     <h3>Contacto</h3>
-                    <p>Email: contacto@eventfinder.com</p>
-                    <p>Teléfono: +34 123 456 789</p>
+                    <p>Visita nuestro sitio web: <a href="https://www.feriadearte.com" target="_blank">www.feriadearte.com</a></p>
                 </div>
             </div>
 
-            <!-- Evento 3 -->
-            <div class="event-item">
+            <!-- Evento 3: Maratón de la Ciudad -->
+            <div class="event-item" data-tema="deporte">
                 <h2>Maratón de la Ciudad</h2>
                 <img src="images/e3.png" alt="Maratón de la Ciudad">
                 <p class="summary">Participa en la maratón anual y corre por una buena causa.</p>
+                <p class="precio">Precio: 40€</p>
                 <ul class="features">
-                    <li>Inscripción gratuita</li>
+                    <li>Inscripción por 40€</li>
                     <li>Medallas para todos los participantes</li>
                     <li>Hidratación y asistencia médica</li>
                 </ul>
+                <div class="ubicacion">
+                    <h3>Ubicación</h3>
+                    <p>Paseo de la Castellana 789, Barcelona</p>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2994.23456789!2d2.1955!3d41.4061!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4a6789abcdef0%3A0xabcdef123456789!2sPaseo%20de%20la%20Castellana%20789%2C%200080%20Barcelona!5e0!3m2!1ses!2ses!4v1617181940!5m2!1ses!2ses"
+                        width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
                 <div class="options-comments">
                     <button>Opciones</button>
                     <button>Comentarios</button>
                 </div>
                 <div class="contact-info">
                     <h3>Contacto</h3>
-                    <p>Email: contacto@eventfinder.com</p>
-                    <p>Teléfono: +34 123 456 789</p>
+                    <p>Visita nuestro sitio web: <a href="https://www.maratondeciudad.com" target="_blank">www.maratondeciudad.com</a></p>
                 </div>
             </div>
+        </section>
+
+        <!-- Sección de Reseñas -->
+        <section class="reviews">
+            <h2>Reseñas</h2>
+            <div class="review-item">
+                <p>"Eventfinder me ayudó a descubrir eventos increíbles en Barcelona. ¡Fue una experiencia inolvidable!"</p>
+                <p class="autor">- Ana Gómez</p>
+            </div>
+            <div class="review-item">
+                <p>"Gracias a Eventfinder encontré el concierto perfecto para mi fin de semana. ¡Muy recomendable!"</p>
+                <p class="autor">- Carlos Ruiz</p>
+            </div>
+            <div class="review-item">
+                <p>"La feria de arte fue espectacular, todo gracias a Eventfinder por facilitar la información."'</p>
+                <p class="autor">- Laura Martínez</p>
+            </div>
+        </section>
+
+        <!-- Sección de Contacto -->
+        <section class="contact-section">
+            <h2>Contacto</h2>
+            <p>Email: contacto@eventfinder.com</p>
+            <p>Teléfono: +34 123 456 789</p>
         </section>
     </main>
 
