@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const fecha = date.toLocaleDateString('es-ES');
 
         const btn = document.createElement('button');
-        btn.textContent = `${day}, ${fecha}`;
+        btn.textContent = `${capitalizeFirstLetter(day)}, ${fecha}`;
         btn.setAttribute('data-value', fecha);
         btn.addEventListener('click', () => {
             document.querySelector('#cuando .option-button').textContent = btn.textContent;
@@ -60,9 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Aquí puedes agregar lógica para actualizar el feed de eventos
         });
         sitioOptions.appendChild(btn);
-    }
-
-    );
+    });
 
     // Opcional: Cerrar dropdown al hacer clic fuera
     window.addEventListener('click', (e) => {
@@ -75,6 +73,11 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
+
+    // Función para capitalizar la primera letra de una palabra
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
 
     // Aquí puedes agregar más funcionalidades para manejar el feed de eventos dinámicamente
 });

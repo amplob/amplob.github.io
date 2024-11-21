@@ -1,0 +1,21 @@
+
+
+
+i want to host a landing page with github pages, tell me step by step what needs to be done to host it.
+also, i want a landing page code (html, css and js) of a site that gives you a feed of events happening on a place
+there should be 2 options "cuando?" that is set to "hoy" and if clicked there are the dates of the following days
+there should also be a "sitio?" set to "Barcelona" but if clicked shows different options (that to be implemented later but has to show
+that it can change)
+
+tienen que aparecer los items sigueientes en la pagina
+
+nom 
+imatge
+objectiu / frase resum
+característiques destacades
+opcions i comentaris
+info contacte
+model de negoci (subscripcio, etc, 
+manera de monetizar el producte)
+
+nom és "Eventfinder" 

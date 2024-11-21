@@ -6,12 +6,28 @@
 }
 
 body {
-    background-color: #f4f4f4;
+    background-image: url('images/bg.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     color: #333;
+    min-height: 100vh;
+}
+
+/* Superposición para mejorar la legibilidad del contenido sobre el fondo */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(128, 0, 128, 0.5); /* Púrpura semi-transparente */
+    z-index: -1;
 }
 
 header {
-    background-color: #ff5722;
+    background-color: rgba(128, 0, 128, 0.8); /* Púrpura con opacidad */
     color: #fff;
     padding: 20px 0;
     text-align: center;
@@ -19,6 +35,24 @@ header {
 
 main {
     padding: 20px;
+}
+
+.business-model {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.business-model h2 {
+    color: #4B0082; /* Indigo */
+    margin-bottom: 10px;
+}
+
+.business-model p {
+    font-size: 1.2em;
+    color: #333;
 }
 
 .filters {
@@ -36,6 +70,7 @@ label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
+    color: #fff;
 }
 
 .options {
@@ -46,16 +81,16 @@ label {
 
 .option-button {
     background-color: #fff;
-    border: 2px solid #ff5722;
-    color: #ff5722;
+    border: 2px solid #4B0082; /* Indigo */
+    color: #4B0082;
     padding: 10px 20px;
     cursor: pointer;
     border-radius: 5px;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .option-button:hover, .option-button.active {
-    background-color: #ff5722;
+    background-color: #4B0082;
     color: #fff;
 }
 
@@ -65,10 +100,10 @@ label {
     top: 50px;
     left: 0;
     background-color: #fff;
-    border: 2px solid #ff5722;
+    border: 2px solid #4B0082;
     border-radius: 5px;
     z-index: 1;
-    width: 150px;
+    width: 200px;
 }
 
 .dropdown-content button {
@@ -78,11 +113,11 @@ label {
     border: none;
     text-align: left;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .dropdown-content button:hover {
-    background-color: #ff5722;
+    background-color: #4B0082;
     color: #fff;
 }
 
@@ -97,11 +132,16 @@ label {
 }
 
 .event-item {
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.9);
     padding: 15px;
-    border: 2px solid #ff5722;
+    border: 2px solid #4B0082;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.event-item:hover {
+    transform: scale(1.02);
 }
 
 .event-item img {
@@ -112,7 +152,7 @@ label {
 
 .event-item h2 {
     margin: 10px 0;
-    color: #ff5722;
+    color: #4B0082;
 }
 
 .summary {
@@ -127,7 +167,7 @@ label {
 }
 
 .options-comments button {
-    background-color: #ff5722;
+    background-color: #4B0082;
     color: #fff;
     border: none;
     padding: 8px 12px;
@@ -138,17 +178,41 @@ label {
 }
 
 .options-comments button:hover {
-    background-color: #e64a19;
+    background-color: #3A006E;
 }
 
-.contact-info, .business-model {
+.contact-info {
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 10px;
+    border-radius: 5px;
     margin-top: 10px;
 }
 
+.contact-info h3 {
+    color: #4B0082;
+    margin-bottom: 5px;
+}
+
+.contact-info p {
+    margin-bottom: 3px;
+}
+
 footer {
-    background-color: #ff5722;
+    background-color: rgba(128, 0, 128, 0.8); /* Púrpura con opacidad */
     color: #fff;
     text-align: center;
     padding: 10px 0;
     margin-top: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .filters {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .dropdown-content {
+        width: 100%;
+    }
 }
