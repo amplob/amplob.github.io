@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventfinder</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Eventfinder</h1>
+    </header>
+
+    <main>
+        <section class="filters">
+            <div class="filter">
+                <label for="cuando">¿Cuándo?</label>
+                <div class="options" id="cuando">
+                    <button class="option-button active" data-value="hoy">Hoy</button>
+                    <div class="dropdown-content" id="cuando-options">
+                        <!-- Opciones de fechas se añadirán aquí -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter">
+                <label for="sitio">¿Sitio?</label>
+                <div class="options" id="sitio">
+                    <button class="option-button active" data-value="barcelona">Barcelona</button>
+                    <div class="dropdown-content" id="sitio-options">
+                        <!-- Opciones de sitios se añadirán aquí -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="event-feed" id="event-feed">
+            <!-- Eventos se mostrarán aquí -->
+            <div class="event-item">
+                <h2>Nombre del Evento</h2>
+                <img src="https://via.placeholder.com/150" alt="Imagen del Evento">
+                <p class="summary">Frase resumida del objetivo del evento.</p>
+                <ul class="features">
+                    <li>Característica destacada 1</li>
+                    <li>Característica destacada 2</li>
+                    <li>Característica destacada 3</li>
+                </ul>
+                <div class="options-comments">
+                    <button>Opciones</button>
+                    <button>Comentarios</button>
+                </div>
+                <div class="contact-info">
+                    <h3>Contacto</h3>
+                    <p>Email: contacto@eventfinder.com</p>
+                    <p>Teléfono: +34 123 456 789</p>
+                </div>
+                <div class="business-model">
+                    <h3>Modelo de Negocio</h3>
+                    <p>Subscripción mensual para acceder a eventos exclusivos.</p>
+                </div>
+            </div>
+            <!-- Repite el bloque de .event-item para más eventos -->
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Eventfinder. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
