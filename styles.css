@@ -145,8 +145,10 @@ label {
 /* Sección de Feed de Eventos */
 .event-feed {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
+    max-height: 900px; /* Ajusta según el tamaño de los eventos */
+    overflow-y: auto;
 }
 
 .event-item {
@@ -241,6 +243,15 @@ label {
     margin-bottom: 3px;
 }
 
+.contact-info a {
+    color: #4B0082;
+    text-decoration: none;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
+}
+
 /* Sección de Reseñas */
 .reviews {
     background-color: rgba(255, 255, 255, 0.8);
@@ -324,6 +335,13 @@ footer {
 }
 
 /* Responsive Design */
+@media (max-width: 1024px) {
+    .event-feed {
+        grid-template-columns: repeat(2, 1fr);
+        max-height: 600px; /* Ajusta según el tamaño de los eventos */
+    }
+}
+
 @media (max-width: 768px) {
     .filters {
         flex-direction: column;
@@ -337,4 +355,21 @@ footer {
     .intro-video video {
         max-width: 100%;
     }
+
+    .event-feed {
+        grid-template-columns: 1fr;
+        max-height: 450px; /* Ajusta según el tamaño de los eventos */
+    }
+}
+
+/* Sección de Feed de Eventos */
+.event-feed {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-height: 900px; /* Ajusta según el tamaño de los eventos */
+    overflow-y: auto;
+    max-width: 1200px; /* Nuevo: Limitar el ancho máximo */
+    margin: 0 auto; /* Nuevo: Centrar el div */
+    padding: 10px;
 }

@@ -40,9 +40,11 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.textContent = `${capitalizeFirstLetter(day)}, ${fecha}`;
         btn.setAttribute('data-value', fecha);
         btn.addEventListener('click', () => {
-            document.querySelector('#cuando .option-button').textContent = btn.textContent;
-            document.querySelector('#cuando .option-button').classList.remove('active');
-            dropdown.style.display = 'none';
+            const cuandoButton = document.querySelector('#cuando .option-button');
+            cuandoButton.textContent = btn.textContent;
+            cuandoButton.setAttribute('data-value', btn.getAttribute('data-value'));
+            cuandoButton.classList.remove('active');
+            cuandoOptions.style.display = 'none';
             filterEvents();
         });
         cuandoOptions.appendChild(btn);
@@ -55,8 +57,10 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.textContent = sitio;
         btn.setAttribute('data-value', sitio.toLowerCase());
         btn.addEventListener('click', () => {
-            document.querySelector('#sitio .option-button').textContent = sitio;
-            document.querySelector('#sitio .option-button').classList.remove('active');
+            const sitioButton = document.querySelector('#sitio .option-button');
+            sitioButton.textContent = sitio;
+            sitioButton.setAttribute('data-value', sitio.toLowerCase());
+            sitioButton.classList.remove('active');
             sitioOptions.style.display = 'none';
             filterEvents();
         });
@@ -64,14 +68,16 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Agregar opciones de temas
-    const temas = ['deporte', 'cultura', 'fiesta'];
+    const temas = ['todos', 'deporte', 'cultura', 'fiesta'];
     temas.forEach(tema => {
         const btn = document.createElement('button');
         btn.textContent = capitalizeFirstLetter(tema);
         btn.setAttribute('data-value', tema);
         btn.addEventListener('click', () => {
-            document.querySelector('#tema .option-button').textContent = capitalizeFirstLetter(tema);
-            document.querySelector('#tema .option-button').classList.remove('active');
+            const temaButton = document.querySelector('#tema .option-button');
+            temaButton.textContent = capitalizeFirstLetter(tema);
+            temaButton.setAttribute('data-value', tema);
+            temaButton.classList.remove('active');
             temaOptions.style.display = 'none';
             filterEvents();
         });
@@ -85,18 +91,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Función para filtrar eventos
     function filterEvents() {
-        const cuando = document.querySelector('#cuando .option-button').textContent.toLowerCase();
-        const sitio = document.querySelector('#sitio .option-button').textContent.toLowerCase();
-        const tema = document.querySelector('#tema .option-button').textContent.toLowerCase();
+        const cuando = document.querySelector('#cuando .option-button').getAttribute('data-value') || 'hoy';
+        const sitio = document.querySelector('#sitio .option-button').getAttribute('data-value') || 'barcelona';
+        const tema = document.querySelector('#tema .option-button').getAttribute('data-value') || 'todos';
 
         const events = document.querySelectorAll('.event-item');
 
         events.forEach(event => {
-            const eventTema = event.getAttribute('data-tema');
+            const eventTemas = event.getAttribute('data-tema').split(',');
+            const eventTemaLower = eventTemas.map(t => t.trim().toLowerCase());
+
             let isVisible = true;
 
             // Filtrar por tema
-            if (tema !== 'todos' && eventTema !== tema) {
+            if (tema !== 'todos' && !eventTemaLower.includes(tema)) {
                 isVisible = false;
             }
 
