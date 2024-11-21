@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Función para agregar fechas dinámicamente
     const cuandoOptions = document.getElementById('cuando-options');
     const sitioOptions = document.getElementById('sitio-options');
+    const temaOptions = document.getElementById('tema-options');
 
     // Agregar las próximas 5 fechas a 'cuando'
     for(let i = 1; i <= 5; i++) {
@@ -63,7 +64,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Agregar opciones de temas
-    const temaOptions = document.getElementById('tema-options');
     const temas = ['deporte', 'cultura', 'fiesta'];
     temas.forEach(tema => {
         const btn = document.createElement('button');
@@ -85,9 +85,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Función para filtrar eventos
     function filterEvents() {
-        const cuando = document.querySelector('#cuando .option-button').getAttribute('data-value') || 'hoy';
-        const sitio = document.querySelector('#sitio .option-button').getAttribute('data-value') || 'barcelona';
-        const tema = document.querySelector('#tema .option-button').getAttribute('data-value') || 'todos';
+        const cuando = document.querySelector('#cuando .option-button').textContent.toLowerCase();
+        const sitio = document.querySelector('#sitio .option-button').textContent.toLowerCase();
+        const tema = document.querySelector('#tema .option-button').textContent.toLowerCase();
 
         const events = document.querySelectorAll('.event-item');
 
@@ -100,8 +100,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 isVisible = false;
             }
 
-            // Aquí puedes agregar más filtros como 'cuando' y 'sitio' si tienes esa información en los eventos
-            // Por ahora, solo filtramos por 'tema'
+            // Filtrar por sitio
+            if (sitio !== 'barcelona' && !event.textContent.toLowerCase().includes(sitio)) {
+                isVisible = false;
+            }
+
+            // Filtrar por cuando (Por ahora, no hay datos específicos de fecha en los eventos)
+            // Puedes implementar esta funcionalidad cuando tengas información de fechas en los eventos
 
             if (isVisible) {
                 event.style.display = 'block';

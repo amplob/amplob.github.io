@@ -198,6 +198,20 @@ label {
     margin-bottom: 5px;
 }
 
+/* Inspirational Paragraph */
+.inspirational {
+    margin-top: 10px;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.inspirational p {
+    font-style: italic;
+    color: #555;
+}
+
+/* Opciones y Comentarios */
 .options-comments button {
     background-color: #4B0082;
     color: #fff;
@@ -211,6 +225,20 @@ label {
 
 .options-comments button:hover {
     background-color: #3A006E;
+}
+
+/* Sección de Contacto dentro de cada Evento */
+.contact-info {
+    margin-top: 10px;
+}
+
+.contact-info h3 {
+    color: #4B0082;
+    margin-bottom: 5px;
+}
+
+.contact-info p {
+    margin-bottom: 3px;
 }
 
 /* Sección de Reseñas */
@@ -231,6 +259,12 @@ label {
     margin-bottom: 20px;
 }
 
+.review-item .stars {
+    font-size: 1.2em;
+    color: #FFD700; /* Oro para las estrellas */
+    margin-bottom: 10px;
+}
+
 .review-item p {
     font-style: italic;
     color: #555;
@@ -240,6 +274,25 @@ label {
     margin-top: 5px;
     font-weight: bold;
     color: #4B0082;
+}
+
+/* Sección de Sobre Nosotros */
+.about-us {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.about-us h2 {
+    color: #4B0082;
+    margin-bottom: 10px;
+}
+
+.about-us p {
+    color: #333;
+    line-height: 1.6;
 }
 
 /* Sección de Contacto */
@@ -261,6 +314,7 @@ label {
     margin-bottom: 5px;
 }
 
+/* Footer */
 footer {
     background-color: rgba(128, 0, 128, 0.8); /* Púrpura con opacidad */
     color: #fff;
