@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupOutsideClickListener();    // Configura l'escoltador per tancar els desplegables quan es clica fora
     initializeNavbarLinks();        // Inicialitza els enllaços de la barra de navegació
     initializeContactForm();        // Inicialitza el formulari de contacte
+    initializeHeaderScrollEffect(); // Inicialitza l'efecte de scroll al header
 });
 
 // Funció per inicialitzar els desplegables dels filtres
@@ -53,10 +54,10 @@ function initializeDropdowns() {
 function populateFilterOptions() {
     // Opcions per al filtre "¿Cuándo?"
     addOptions('cuando-options', [
-        { label: 'Todos', value: 'todos' },
-        ...generateDateOptions(40) // Inclou "Todos" abans de les dates
+        { label: 'Hoy', value: 'hoy' },
+        ...generateDateOptions(7)
     ], handleCuandoSelection);
-
+    
     // Opcions per al filtre "¿Sitio?"
     addOptions('sitio-options', [
         { label: 'Barcelona', value: 'barcelona' },
@@ -96,11 +97,11 @@ function addOptions(elementId, options, callback) {
 function generateDateOptions(days) {
     const options = [];
 
-    for (let i = 0; i < days; i++) {
+    for (let i = 1; i <= days; i++) {
         const date = new Date();
         date.setDate(date.getDate() + i);
-        const dayName = date.toLocaleDateString('es-ES', { weekday: 'long' });
-        const formattedDate = date.toLocaleDateString('es-ES', { year: 'numeric', month: 'short', day: 'numeric' });
+        const dayName = date.toLocaleDateString('ca-ES', { weekday: 'long' });
+        const formattedDate = date.toLocaleDateString('ca-ES', { year: 'numeric', month: 'short', day: 'numeric' });
 
         options.push({
             label: `${capitalizeFirstLetter(dayName)}, ${formattedDate}`,
@@ -151,69 +152,38 @@ function capitalizeFirstLetter(string) {
 
 // Funció principal per filtrar els esdeveniments segons els filtres seleccionats
 function filterEvents() {
-    const cuando = document.querySelector('#cuando .option-button').getAttribute('data-value') || 'todos';
-    const sitio = document.querySelector('#sitio .option-button').getAttribute('data-value') || 'barcelona';
-    const tema = document.querySelector('#tema .option-button').getAttribute('data-value') || 'todos';
+    const selectedSitio = document.querySelector('#sitio .option-button').getAttribute('data-value') || 'todos';
+    const selectedTema = document.querySelector('#tema .option-button').getAttribute('data-value') || 'todos';
 
     const events = document.querySelectorAll('.event-item');
 
     events.forEach(event => {
         const eventTemas = event.getAttribute('data-tema').split(',').map(t => t.trim().toLowerCase());
         const eventSitio = event.getAttribute('data-sitio').toLowerCase();
-        const eventFecha = event.getAttribute('data-fecha'); // Format 'YYYY-MM-DD'
 
         let isVisible = true;
 
         // Filtrar per tema
-        if (tema !== 'todos' && !eventTemas.includes(tema)) {
+        if (selectedTema !== 'todos' && !eventTemas.includes(selectedTema)) {
             isVisible = false;
         }
 
-        // Filtrar per sitio
-        if (sitio !== 'barcelona' && eventSitio !== sitio) {
+        // Filtrar per localitat
+        if (selectedSitio !== 'todos' && eventSitio !== selectedSitio) {
             isVisible = false;
         }
 
-        // Filtrar per cuándo
-        if (cuando !== 'todos') {
-            if (cuando !== 'hoy') {
-                const selectedDate = new Date(cuando);
-                const eventDate = new Date(eventFecha);
-                // Comparar només la data, no la hora
-                if (
-                    selectedDate.getFullYear() !== eventDate.getFullYear() ||
-                    selectedDate.getMonth() !== eventDate.getMonth() ||
-                    selectedDate.getDate() !== eventDate.getDate()
-                ) {
-                    isVisible = false;
-                }
-            } else {
-                // Mostrar només esdeveniments d'avui
-                const today = new Date();
-                const eventDate = new Date(eventFecha);
-                if (
-                    today.getFullYear() !== eventDate.getFullYear() ||
-                    today.getMonth() !== eventDate.getMonth() ||
-                    today.getDate() !== eventDate.getDate()
-                ) {
-                    isVisible = false;
-                }
-            }
-        }
-
-        // Mostrar o ocultar l'esdeveniment segons el resultat del filtratge
+        // Mostrar o amagar l'esdeveniment
         if (isVisible) {
+            event.style.display = 'block'; // Mostrar
             event.classList.remove('hidden');
-            event.style.display = 'block';
         } else {
+            event.style.display = 'none'; // Amagar
             event.classList.add('hidden');
-            // Utilitzar setTimeout per permetre la transició (si tens transicions CSS)
-            setTimeout(() => {
-                event.style.display = 'none';
-            }, 300); // 300ms coincideix amb la durada de la transició
         }
     });
 }
+
 
 // Funció per tancar els desplegables quan es clica fora dels filtres
 function setupOutsideClickListener() {
@@ -227,26 +197,6 @@ function setupOutsideClickListener() {
                 btn.setAttribute('aria-expanded', 'false');
             });
         }
-    });
-}
-
-// Funció per inicialitzar els enllaços de la barra de navegació per fer scroll suau
-function initializeNavbarLinks() {
-    const navbarLinks = document.querySelectorAll('.navbar ul li a');
-
-    navbarLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const targetId = link.getAttribute('href').substring(1);
-            const targetSection = document.getElementById(targetId);
-
-            if (targetSection) {
-                window.scrollTo({
-                    top: targetSection.offsetTop - 100, // Ajusta segons l'alçada del header
-                    behavior: 'smooth'
-                });
-            }
-        });
     });
 }
 
@@ -295,4 +245,70 @@ function initializeContactForm() {
             }
         });
     }
+}
+
+
+
+
+
+
+/**
+ * Funció per fer scroll suau amb els enllaços de la navbar
+ */
+function initializeNavbarLinks() {
+    const navbarLinks = document.querySelectorAll('.navbar ul li a');
+
+    navbarLinks.forEach(link => {
+        link.addEventListener('click', event => {
+            event.preventDefault();
+            const targetId = link.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+
+            if (targetElement) {
+                const offsetTop = targetElement.offsetTop;
+                window.scrollTo({
+                    top: offsetTop - 50, // Ajusta segons l'alçada del header
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+}
+
+
+
+
+
+/**
+ * Funció per amagar el header en fer scroll
+*/function initializeHeaderScrollEffect() {
+    const header = document.querySelector('header');
+    const headerContent = document.querySelector('.header-content');
+    const main = document.querySelector('main');
+    const fullScaleThreshold = 0; // Scroll mínim, escala completa
+    const minimizedScaleThreshold = 150; // Scroll per començar a escalar
+    const hiddenThreshold = 300; // Scroll per desaparèixer completament
+
+    window.addEventListener('scroll', () => {
+        const scrollPosition = window.scrollY;
+
+        if (scrollPosition > hiddenThreshold) {
+            // Amaga completament el contingut del header
+            headerContent.classList.add('hidden');
+            header.style.height = '0'; // Elimina l'alçada del `header`
+        } else if (scrollPosition > minimizedScaleThreshold) {
+            // Escala progressivament entre 1 i 0.2
+            headerContent.classList.remove('hidden');
+            const scale = Math.max(0.2, 1 - (scrollPosition - minimizedScaleThreshold) / (hiddenThreshold - minimizedScaleThreshold));
+            headerContent.style.transform = `scale(${scale})`;
+            headerContent.style.opacity = `${scale}`; // Redueix l'opacitat progressivament
+            header.style.height = `${scale * 60}vh`; // Ajusta l'alçada proporcional a l'escala
+        } else {
+            // Mostra el header completament
+            headerContent.classList.remove('hidden');
+            headerContent.style.transform = 'scale(1)';
+            headerContent.style.opacity = '1';
+            header.style.height = '60vh'; // Alçada inicial
+        }
+    });
 }

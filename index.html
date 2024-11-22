@@ -3,25 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eventfinder</title>
+    <title>EVENTFINDER</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="images/favicon.png" type="image/png">
 </head>
 <body>
-    <!-- Header Sticky amb Text i Navbar -->
+    <!-- Navbar fixa fora del header -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="#intro-video">Video</a></li>
+            <li><a href="#event-feed">Eventos</a></li>
+            <li><a href="#about-us">Sobre Nosotros</a></li>
+            <li><a href="#contact-section">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <!-- Header només per al contingut escalable -->
     <header>
         <div class="header-content">
-            <h1>Eventfinder</h1>
+            <h1>EVENTFINDER</h1>
             <p>Our Best Plans, Your Best Life</p>
         </div>
-        <nav class="navbar">
-            <ul>
-                <li><a href="#intro-video">Video</a></li>
-                <li><a href="#event-feed">Eventos</a></li>
-                <li><a href="#about-us">Sobre Nosotros</a></li>
-                <li><a href="#contact-section">Contacto</a></li>
-            </ul>
-        </nav>
     </header>
 
     <main>
@@ -44,7 +46,7 @@
             <div class="filter">
                 <span>¿Cuándo?</span>
                 <div class="options" id="cuando">
-                    <button class="option-button active" data-value="todos" aria-haspopup="true" aria-expanded="false">Hoy</button>
+                    <button class="option-button active" data-value="hoy" aria-haspopup="true" aria-expanded="false">Hoy</button>
                     <div class="dropdown-content" id="cuando-options" role="menu" aria-labelledby="cuando">
                         <!-- Opciones de fechas se añadirán aquí -->
                     </div>
@@ -106,7 +108,9 @@
         <!-- Sección de Sobre Nosotros -->
         <section class="about-us" id="about-us">
             <h2>Sobre Nosotros</h2>
-            <p>Siendo estudiantes de informática, estábamos solos y éramos unos antisocials, pero gracias a EventFinder, ahora podemos encontrar cosas que hacer. Nuestra visión es conectar a organizadores de eventos con usuarios interesados, promoviendo actividades de todo tipo. Nuestra misión es conectar a las personas con eventos que les apasionan, permitiéndoles vivir momentos inolvidables y crear experiencias únicas.</p>
+            <p>Éramos estudiantes de informática, expertos en código y en evitar conversaciones incómodas, pero con la vida social de una planta de oficina. Entonces llegó EventFinder. Ahora no solo sabemos qué hacer, sino que incluso nos atrevemos a salir de nuestra cueva digital para disfrutar de la vida real (sí, ¡existe!).
+
+                Nuestra visión es conectar a los organizadores de eventos con personas curiosas como nosotros, promoviendo actividades para todos los gustos. Nuestra misión es inspirarte a vivir experiencias únicas, porque la vida no solo se programa: ¡también se disfruta! Conecta, ríe, descubre y haz que cada momento sea inolvidable. EventFinder, porque mereces más que un fin de semana frente a la pantalla.</p>
         </section>
 
         <!-- Sección de Contacto -->

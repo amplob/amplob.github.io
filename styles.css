@@ -1,9 +1,11 @@
+/* styles.css */
+
 :root {
     --color-primary: #4B0082; /* Indigo */
     --color-secondary: #800080; /* Púrpura */
     --color-accent: #FFD700; /* Oro */
     --color-bg-overlay: rgba(128, 0, 128, 0.5);
-    --color-bg-header: rgba(0, 0, 0, 0.7); /* Canvi a negre semitransparent per millorar la visibilitat del text */
+    --color-bg-header: rgba(0, 0, 0, 0.7); /* Negre semitransparent per millorar la visibilitat del text */
     --color-text: #333;
     --color-text-light: #fff; /* Blanc */
     --font-primary: Arial, sans-serif;
@@ -39,46 +41,26 @@ body::before {
     z-index: -1;
 }
 
-/* Header Estils */
-header {
+
+
+
+/* Navbar Estils */
+.navbar {
     position: sticky;
     top: 0;
     width: 100%;
     background-color: var(--color-bg-header);
+    z-index: 1000;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    z-index: 1000; /* Assegura que el header estigui per sobre d'altres elements */
-    padding: 10px 0; /* Reducció de padding per a un header més compacte */
-}
-
-.header-content {
-    text-align: center;
-}
-
-.header-content h1 {
-    margin: 0;
-    font-size: 2em;
-    color: var(--color-text-light);
-}
-
-.header-content p {
-    margin: 5px 0 0 0;
-    font-size: 1em;
-    color: var(--color-text-light);
-}
-
-/* Navbar Estils */
-.navbar {
-    width: 100%;
-    background-color: var(--color-bg-header);
+    justify-content: center;
+    padding: 10px 0;
 }
 
 .navbar ul {
     list-style: none;
     display: flex;
     justify-content: center;
-    padding: 10px 0;
+    padding: 0;
     margin: 0;
 }
 
@@ -97,10 +79,82 @@ header {
     color: var(--color-accent); /* Canvi de color al passar el cursor */
 }
 
-/* Assegurar que el main no es amaga sota el header sticky */
+
+
+
+
+
+
+
+/* Header Estils */
+header {
+    position: relative;
+    width: 100%;
+    background-color: var(--color-bg-header);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    height: 60vh; /* Comença amb el 60% de l'altura de la pantalla */
+    transition: height 0.3s ease; /* Suavitza el canvi d'alçada */
+}
+
+.header-content {
+    text-align: center;
+    transform: scale(1); /* Escala inicial */
+    transition: transform 0.3s ease, opacity 0.3s ease; /* Transicions suaus */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    opacity: 1;
+}
+
+.header-content.hidden {
+    transform: scale(0); /* Escala mínima */
+    opacity: 0; /* Fes-lo invisible */
+}
+
+.header-content h1 {
+    font-size: 6em; /* Lletres més grans */
+    color: var(--color-text-light);
+    margin: 0;
+    text-transform: uppercase; /* Text en majúscules */
+}
+
+.header-content p {
+    font-size: 2.5em; /* Més gran que abans */
+    color: var(--color-text-light);
+    margin: 10px 0 0 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Assegurar que el main no es amaga sota el header fixed */
 main {
-    padding-top: 100px; /* Ajusta segons l'alçada del header */
-    padding: 20px;
+    padding-top: 30vh; /* Alinea amb l'alçada del header */
+    transition: padding-top 0.5s ease;
+}
+
+/* Canvi del color de les etiquetes de filtres a blanc */
+.filters .filter span {
+    color: #ffffff; /* Blanc */
 }
 
 /* Sección de Modelo de Negocio */
@@ -222,6 +276,9 @@ label {
 }
 
 .event-item {
+    display: block; /* Sempre visibles inicialment */
+    opacity: 1;    /* Plenament visibles */
+    transform: scale(1);
     background-color: rgba(255, 255, 255, 0.9);
     padding: 15px;
     border: 2px solid var(--color-primary);
@@ -235,6 +292,7 @@ label {
 }
 
 .event-item.hidden {
+    display: none; /* Només amaga quan el filtre ho exigeix */
     opacity: 0;
     transform: scale(0.95);
 }
