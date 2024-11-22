@@ -1,16 +1,27 @@
-* {
+:root {
+    --color-primary: #4B0082; /* Indigo */
+    --color-secondary: #800080; /* Púrpura */
+    --color-accent: #FFD700; /* Oro */
+    --color-bg-overlay: rgba(128, 0, 128, 0.5);
+    --color-bg-header: rgba(0, 0, 0, 0.7); /* Canvi a negre semitransparent per millorar la visibilitat del text */
+    --color-text: #333;
+    --color-text-light: #fff; /* Blanc */
+    --font-primary: Arial, sans-serif;
+}
+
+*, *::before, *::after {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
 }
 
 body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-primary);
     background-image: url('images/bg.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    color: #333;
+    color: var(--color-text);
     min-height: 100vh;
     position: relative;
     z-index: 1;
@@ -24,18 +35,71 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(128, 0, 128, 0.5); /* Púrpura semi-transparente */
+    background-color: var(--color-bg-overlay);
     z-index: -1;
 }
 
+/* Header Estils */
 header {
-    background-color: rgba(128, 0, 128, 0.8); /* Púrpura con opacidad */
-    color: #fff;
-    padding: 20px 0;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: var(--color-bg-header);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1000; /* Assegura que el header estigui per sobre d'altres elements */
+    padding: 10px 0; /* Reducció de padding per a un header més compacte */
+}
+
+.header-content {
     text-align: center;
 }
 
+.header-content h1 {
+    margin: 0;
+    font-size: 2em;
+    color: var(--color-text-light);
+}
+
+.header-content p {
+    margin: 5px 0 0 0;
+    font-size: 1em;
+    color: var(--color-text-light);
+}
+
+/* Navbar Estils */
+.navbar {
+    width: 100%;
+    background-color: var(--color-bg-header);
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    margin: 0;
+}
+
+.navbar ul li {
+    margin: 0 15px;
+}
+
+.navbar ul li a {
+    color: var(--color-text-light);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.navbar ul li a:hover {
+    color: var(--color-accent); /* Canvi de color al passar el cursor */
+}
+
+/* Assegurar que el main no es amaga sota el header sticky */
 main {
+    padding-top: 100px; /* Ajusta segons l'alçada del header */
     padding: 20px;
 }
 
@@ -49,13 +113,13 @@ main {
 }
 
 .business-model h2 {
-    color: #4B0082; /* Indigo */
+    color: var(--color-primary);
     margin-bottom: 10px;
 }
 
 .business-model p {
     font-size: 1.2em;
-    color: #333;
+    color: var(--color-text);
 }
 
 /* Video de Introducción */
@@ -87,7 +151,7 @@ label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
-    color: #fff;
+    color: var(--color-text-light);
 }
 
 .options {
@@ -97,30 +161,37 @@ label {
 }
 
 .option-button {
-    background-color: #fff;
-    border: 2px solid #4B0082; /* Indigo */
-    color: #4B0082;
-    padding: 10px 20px;
+    background-color: var(--color-text-light);
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
+    padding: 8px 16px; /* Reducció de padding per a un botó més compacte */
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s, color 0.3s;
 }
 
 .option-button:hover, .option-button.active {
-    background-color: #4B0082;
-    color: #fff;
+    background-color: var(--color-primary);
+    color: var(--color-text-light);
 }
 
 .dropdown-content {
-    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
     position: absolute;
     top: 50px;
     left: 0;
     background-color: #fff;
-    border: 2px solid #4B0082;
+    border: 2px solid var(--color-primary);
     border-radius: 5px;
     z-index: 1;
     width: 200px;
+}
+
+.dropdown-content.visible {
+    opacity: 1;
+    visibility: visible;
 }
 
 .dropdown-content button {
@@ -134,12 +205,8 @@ label {
 }
 
 .dropdown-content button:hover {
-    background-color: #4B0082;
-    color: #fff;
-}
-
-.filter.active .dropdown-content {
-    display: block;
+    background-color: var(--color-primary);
+    color: var(--color-text-light);
 }
 
 /* Sección de Feed de Eventos */
@@ -147,21 +214,29 @@ label {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
-    max-height: 900px; /* Ajusta según el tamaño de los eventos */
+    max-height: 900px; /* Ajusta segons el tamany dels esdeveniments */
     overflow-y: auto;
+    max-width: 1200px; /* Limitar el llarg màxim */
+    margin: 0 auto; /* Centrar el div */
+    padding: 10px;
 }
 
 .event-item {
     background-color: rgba(255, 255, 255, 0.9);
     padding: 15px;
-    border: 2px solid #4B0082;
+    border: 2px solid var(--color-primary);
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    transition: transform 0.3s;
+    transition: transform 0.3s, opacity 0.3s;
 }
 
 .event-item:hover {
     transform: scale(1.02);
+}
+
+.event-item.hidden {
+    opacity: 0;
+    transform: scale(0.95);
 }
 
 .event-item img {
@@ -172,7 +247,7 @@ label {
 
 .event-item h2 {
     margin: 10px 0;
-    color: #4B0082;
+    color: var(--color-primary);
 }
 
 .summary {
@@ -196,27 +271,14 @@ label {
 }
 
 .ubicacion h3 {
-    color: #4B0082;
+    color: var(--color-primary);
     margin-bottom: 5px;
-}
-
-/* Inspirational Paragraph */
-.inspirational {
-    margin-top: 10px;
-    background-color: rgba(255, 255, 255, 0.7);
-    padding: 10px;
-    border-radius: 5px;
-}
-
-.inspirational p {
-    font-style: italic;
-    color: #555;
 }
 
 /* Opciones y Comentarios */
 .options-comments button {
-    background-color: #4B0082;
-    color: #fff;
+    background-color: var(--color-primary);
+    color: var(--color-text-light);
     border: none;
     padding: 8px 12px;
     margin-right: 10px;
@@ -235,7 +297,7 @@ label {
 }
 
 .contact-info h3 {
-    color: #4B0082;
+    color: var(--color-primary);
     margin-bottom: 5px;
 }
 
@@ -244,7 +306,7 @@ label {
 }
 
 .contact-info a {
-    color: #4B0082;
+    color: var(--color-primary);
     text-decoration: none;
 }
 
@@ -262,7 +324,7 @@ label {
 }
 
 .reviews h2 {
-    color: #4B0082;
+    color: var(--color-primary);
     margin-bottom: 20px;
 }
 
@@ -284,7 +346,7 @@ label {
 .review-item .autor {
     margin-top: 5px;
     font-weight: bold;
-    color: #4B0082;
+    color: var(--color-primary);
 }
 
 /* Sección de Sobre Nosotros */
@@ -297,12 +359,12 @@ label {
 }
 
 .about-us h2 {
-    color: #4B0082;
+    color: var(--color-primary);
     margin-bottom: 10px;
 }
 
 .about-us p {
-    color: #333;
+    color: var(--color-text);
     line-height: 1.6;
 }
 
@@ -316,19 +378,57 @@ label {
 }
 
 .contact-section h2 {
-    color: #4B0082;
+    color: var(--color-primary);
     margin-bottom: 10px;
 }
 
 .contact-section p {
-    color: #333;
+    color: var(--color-text);
     margin-bottom: 5px;
+}
+
+/* Formulari de Contacte */
+#contact-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#contact-form label {
+    margin-top: 10px;
+    font-weight: bold;
+    color: var(--color-primary);
+}
+
+#contact-form input,
+#contact-form textarea {
+    width: 100%;
+    max-width: 500px;
+    padding: 10px;
+    margin-top: 5px;
+    border: 2px solid var(--color-primary);
+    border-radius: 5px;
+}
+
+#contact-form button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: var(--color-primary);
+    color: var(--color-text-light);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#contact-form button:hover {
+    background-color: #3A006E;
 }
 
 /* Footer */
 footer {
-    background-color: rgba(128, 0, 128, 0.8); /* Púrpura con opacidad */
-    color: #fff;
+    background-color: var(--color-bg-header);
+    color: var(--color-text-light);
     text-align: center;
     padding: 10px 0;
     margin-top: 20px;
@@ -338,11 +438,20 @@ footer {
 @media (max-width: 1024px) {
     .event-feed {
         grid-template-columns: repeat(2, 1fr);
-        max-height: 600px; /* Ajusta según el tamaño de los eventos */
+        max-height: 600px; /* Ajusta segons el tamany dels esdeveniments */
     }
 }
 
 @media (max-width: 768px) {
+    .navbar ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .navbar ul li {
+        margin: 10px 0;
+    }
+
     .filters {
         flex-direction: column;
         align-items: center;
@@ -358,18 +467,6 @@ footer {
 
     .event-feed {
         grid-template-columns: 1fr;
-        max-height: 450px; /* Ajusta según el tamaño de los eventos */
+        max-height: 450px; /* Ajusta segons el tamany dels esdeveniments */
     }
-}
-
-/* Sección de Feed de Eventos */
-.event-feed {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    max-height: 900px; /* Ajusta según el tamaño de los eventos */
-    overflow-y: auto;
-    max-width: 1200px; /* Nuevo: Limitar el ancho máximo */
-    margin: 0 auto; /* Nuevo: Centrar el div */
-    padding: 10px;
 }

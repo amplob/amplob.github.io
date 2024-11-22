@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventfinder</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="images/favicon.png" type="image/png">
+
+</head>
+<body>
+    <header>
+        <h1>Eventfinder</h1>
+        <p>Our Best Plans, Your Best Life</p>
+    </header>
+
+    <main>
+        <!-- Sección de Modelo de Negocio -->
+        <section class="business-model">
+            <h2>¡Encuentra qué hacer hoy!</h2>
+            <p>Te ponemos en contacto con todo lo que está pasando</p>
+        </section>
+
+        <!-- Video de Introducción -->
+        <section class="intro-video">
+            <video controls autoplay muted loop>
+                <source src="images/intro.mp4" type="video/mp4">
+                Tu navegador no soporta el elemento de video.
+            </video>
+        </section>
+
+        <!-- Sección de Filtros -->
+        <section class="filters">
+            <div class="filter">
+                <label for="cuando">¿Cuándo?</label>
+                <div class="options" id="cuando">
+                    <button class="option-button active" data-value="hoy">Hoy</button>
+                    <div class="dropdown-content" id="cuando-options">
+                        <!-- Opciones de fechas se añadirán aquí -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter">
+                <label for="sitio">¿Sitio?</label>
+                <div class="options" id="sitio">
+                    <button class="option-button active" data-value="barcelona">Barcelona</button>
+                    <div class="dropdown-content" id="sitio-options">
+                        <!-- Opciones de sitios se añadirán aquí -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter">
+                <label for="tema">¿Tema?</label>
+                <div class="options" id="tema">
+                    <button class="option-button active" data-value="todos">Todos</button>
+                    <div class="dropdown-content" id="tema-options">
+                        <!-- Opciones de temas se añadirán aquí -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Feed de Eventos -->
+        <section class="event-feed" id="event-feed">
+            <!-- Evento 1: Concierto de Rock -->
+            <div class="event-item" data-tema="fiesta">
+                <h2>Concierto de Rock</h2>
+                <img src="images/fiesta1.png" alt="Concierto de Rock">
+                <p class="summary">Disfruta de una noche llena de energía con las mejores bandas de rock.</p>
+                <p class="precio">Precio: 20€</p>
+                <ul class="features">
+                    <li>Entrada por 20€</li>
+                    <li>Ubicación céntrica</li>
+                    <li>Food trucks disponibles</li>
+                </ul>
+                <div class="ubicacion">
+                    <h3>Ubicación</h3>
+                    <p>Calle Falsa 123, Barcelona</p>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2993.123456789!2d2.1734!3d41.3851!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4a3456789abcd%3A0xabcdef123456789!2sCalle%20Falsa%20123%2C%200080%20Barcelona!5e0!3m2!1ses!2ses!4v1617181920!5m2!1ses!2ses"
+                        width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+                <div class="options-comments">
+                    <button>Opciones</button>
+                    <button>Comentarios</button>
+                </div>
+                <div class="contact-info">
+                    <h3>Contacto</h3>
+                    <p>Visita nuestro sitio web: <a href="https://www.conciertoderock.com" target="_blank">www.conciertoderock.com</a></p>
+                </div>
+            </div>
+
+            <!-- Evento 2: Feria de Arte -->
+            <div class="event-item" data-tema="cultura">
+                <h2>Feria de Arte</h2>
+                <img src="images/cultura1.png" alt="Feria de Arte">
+                <p class="summary">Explora las creaciones de artistas locales e internacionales.</p>
+                <p class="precio">Precio: 15€</p>
+                <ul class="features">
+                    <li>Entrada por 15€</li>
+                    <li>Talleres interactivos</li>
+                    <li>Café artístico</li>
+                </ul>
+                <div class="ubicacion">
+                    <h3>Ubicación</h3>
+                    <p>Avenida Siempre Viva 456, Barcelona</p>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2993.987654321!2d2.1844!3d41.3961!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4a56789abcdef%3A0x123456789abcdef!2sAvenida%20Siempre%20Viva%20456%2C%200080%20Barcelona!5e0!3m2!1ses!2ses!4v1617181930!5m2!1ses!2ses"
+                        width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+                <div class="options-comments">
+                    <button>Opciones</button>
+                    <button>Comentarios</button>
+                </div>
+                <div class="contact-info">
+                    <h3>Contacto</h3>
+                    <p>Visita nuestro sitio web: <a href="https://www.feriadearte.com" target="_blank">www.feriadearte.com</a></p>
+                </div>
+            </div>
+
+            <!-- Evento 3: Maratón de la Ciudad -->
+            <div class="event-item" data-tema="deporte">
+                <h2>Maratón de la Ciudad</h2>
+                <img src="images/deporte1.png" alt="Maratón de la Ciudad">
+                <p class="summary">Participa en la maratón anual y corre por una buena causa.</p>
+                <p class="precio">Precio: 40€</p>
+                <ul class="features">
+                    <li>Inscripción por 40€</li>
+                    <li>Medallas para todos los participantes</li>
+                    <li>Hidratación y asistencia médica</li>
+                </ul>
+                <div class="ubicacion">
+                    <h3>Ubicación</h3>
+                    <p>Paseo de la Castellana 789, Barcelona</p>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2994.23456789!2d2.1955!3d41.4061!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4a6789abcdef0%3A0xabcdef123456789!2sPaseo%20de%20la%20Castellana%20789%2C%200080%20Barcelona!5e0!3m2!1ses!2ses!4v1617181940!5m2!1ses!2ses"
+                        width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+                <div class="options-comments">
+                    <button>Opciones</button>
+                    <button>Comentarios</button>
+                </div>
+                <div class="contact-info">
+                    <h3>Contacto</h3>
+                    <p>Visita nuestro sitio web: <a href="https://www.maratondeciudad.com" target="_blank">www.maratondeciudad.com</a></p>
+                </div>
+            </div>
+
+            <!-- Evento 4: Paellada en la Calle -->
+            <div class="event-item" data-tema="fiesta,cultura">
+                <h2>Paellada en la Calle</h2>
+                <img src="images/fc1.png" alt="Paellada en la Calle">
+                <p class="summary">Disfruta de una deliciosa paella al aire libre en el corazón de Barcelona.</p>
+                <p class="precio">Precio: 25€</p>
+                <ul class="features">
+                    <li>Entrada por 25€</li>
+                    <li>Variedad de paellas</li>
+                    <li>Ambiente festivo y cultural</li>
+                </ul>
+                <div class="ubicacion">
+                    <h3>Ubicación</h3>
+                    <p>Plaza de la Cataluña 101, Barcelona</p>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2994.345678901!2d2.2046!3d41.4152!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4a7890abcdef1%3A0xbcdef1234567890!2sPlaza%20de%20la%20Cataluña%20101%2C%200080%20Barcelona!5e0!3m2!1ses!2ses!4v1617181950!5m2!1ses!2ses"
+                        width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+                <div class="options-comments">
+                    <button>Opciones</button>
+                    <button>Comentarios</button>
+                </div>
+                <div class="contact-info">
+                    <h3>Contacto</h3>
+                    <p>Visita nuestro sitio web: <a href="https://www.paelladacalle.com" target="_blank">www.paelladacalle.com</a></p>
+                </div>
+            </div>
+
+            <!-- Evento 5: Taller de Fotografía -->
+            <div class="event-item" data-tema="cultura">
+                <h2>Taller de Fotografía</h2>
+                <img src="images/cultura2.png" alt="Taller de Fotografía">
+                <p class="summary">Aprende técnicas avanzadas de fotografía con expertos en el campo.</p>
+                <p class="precio">Precio: 30€</p>
+                <ul class="features">
+                    <li>Entrada por 30€</li>
+                    <li>Material incluido</li>
+                    <li>Certificado al finalizar</li>
+                </ul>
+                <div class="ubicacion">
+                    <h3>Ubicación</h3>
+                    <p>Ronda de Sant Antoni 202, Barcelona</p>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2994.456789012!2d2.2157!3d41.4253!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4a890abcdef2%3A0xcdef12345678901!2sRonda%20de%20Sant%20Antoni%20202%2C%200080%20Barcelona!5e0!3m2!1ses!2ses!4v1617181960!5m2!1ses!2ses"
+                        width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+                <div class="options-comments">
+                    <button>Opciones</button>
+                    <button>Comentarios</button>
+                </div>
+                <div class="contact-info">
+                    <h3>Contacto</h3>
+                    <p>Visita nuestro sitio web: <a href="https://www.tallerdefotografia.com" target="_blank">www.tallerdefotografia.com</a></p>
+                </div>
+            </div>
+
+            <!-- Evento 6: Fiesta de Música Electrónica -->
+            <div class="event-item" data-tema="fiesta">
+                <h2>Fiesta de Música Electrónica</h2>
+                <img src="images/fiesta2.png" alt="Fiesta de Música Electrónica">
+                <p class="summary">Vive una noche vibrante con los mejores DJs de música electrónica.</p>
+                <p class="precio">Precio: 35€</p>
+                <ul class="features">
+                    <li>Entrada por 35€</li>
+                    <li>Área VIP disponible</li>
+                    <li>Bar completo</li>
+                </ul>
+                <div class="ubicacion">
+                    <h3>Ubicación</h3>
+                    <p>Gran Vía 303, Barcelona</p>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2994.567890123!2d2.2268!3d41.4354!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4a90123456789%3A0xcdef12345678902!2sGran%20V%C3%ADa%20303%2C%200080%20Barcelona!5e0!3m2!1ses!2ses!4v1617181970!5m2!1ses!2ses"
+                        width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+                <div class="options-comments">
+                    <button>Opciones</button>
+                    <button>Comentarios</button>
+                </div>
+                <div class="contact-info">
+                    <h3>Contacto</h3>
+                    <p>Visita nuestro sitio web: <a href="https://www.fiestaelectronic.com" target="_blank">www.fiestaelectronic.com</a></p>
+                </div>
+            </div>
+
+            <!-- Evento 7: Carrera de Bicicletas -->
+            <div class="event-item" data-tema="deporte">
+                <h2>Carrera de Bicicletas</h2>
+                <img src="images/deporte2.png" alt="Carrera de Bicicletas">
+                <p class="summary">Participa en una emocionante carrera de bicicletas por las calles de Barcelona.</p>
+                <p class="precio">Precio: 30€</p>
+                <ul class="features">
+                    <li>Entrada por 30€</li>
+                    <li>Kit de corredor incluido</li>
+                    <li>Asistencia médica garantizada</li>
+                </ul>
+                <div class="ubicacion">
+                    <h3>Ubicación</h3>
+                    <p>Avenida Diagonal 654, Barcelona</p>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2994.678901234!2d2.2379!3d41.4455!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4a9123456789a%3A0xabcdef123456789!2sAvenida%20Diagonal%20654%2C%200080%20Barcelona!5e0!3m2!1ses!2ses!4v1617181980!5m2!1ses!2ses"
+                        width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+                <div class="options-comments">
+                    <button>Opciones</button>
+                    <button>Comentarios</button>
+                </div>
+                <div class="contact-info">
+                    <h3>Contacto</h3>
+                    <p>Visita nuestro sitio web: <a href="https://www.carreradebicicletas.com" target="_blank">www.carreradebicicletas.com</a></p>
+                </div>
+            </div>
+
+            <!-- Evento 8: Exhibición de Arte Digital -->
+            <div class="event-item" data-tema="cultura">
+                <h2>Exhibición de Arte Digital</h2>
+                <img src="images/cultura3.png" alt="Exhibición de Arte Digital">
+                <p class="summary">Descubre las últimas tendencias en arte digital y tecnología.</p>
+                <p class="precio">Precio: 18€</p>
+                <ul class="features">
+                    <li>Entrada por 18€</li>
+                    <li>Demostraciones en vivo</li>
+                    <li>Espacios interactivos</li>
+                </ul>
+                <div class="ubicacion">
+                    <h3>Ubicación</h3>
+                    <p>Rambla de Catalunya 789, Barcelona</p>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2994.789012345!2d2.2490!3d41.4556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4a923456789abc%3A0xbcdef1234567890!2sRambla%20de%20Catalunya%20789%2C%200080%20Barcelona!5e0!3m2!1ses!2ses!4v1617181990!5m2!1ses!2ses"
+                        width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+                <div class="options-comments">
+                    <button>Opciones</button>
+                    <button>Comentarios</button>
+                </div>
+                <div class="contact-info">
+                    <h3>Contacto</h3>
+                    <p>Visita nuestro sitio web: <a href="https://www.artedigital.com" target="_blank">www.artedigital.com</a></p>
+                </div>
+            </div>
+
+            <!-- Evento 9: Festival de Cine Independiente -->
+            <div class="event-item" data-tema="cultura,fiesta">
+                <h2>Festival de Cine Independiente</h2>
+                <img src="images/cultura4.png" alt="Festival de Cine Independiente">
+                <p class="summary">Proyección de películas independientes y encuentros con directores.</p>
+                <p class="precio">Precio: 22€</p>
+                <ul class="features">
+                    <li>Entrada por 22€</li>
+                    <li>Sesiones de preguntas y respuestas</li>
+                    <li>Cafetería y lounge</li>
+                </ul>
+                <div class="ubicacion">
+                    <h3>Ubicación</h3>
+                    <p>Calle de la Luna 321, Barcelona</p>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2994.890123456!2d2.2601!3d41.4657!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4a93456789abc%3A0xbcdef1234567890!2sCalle%20de%20la%20Luna%20321%2C%200080%20Barcelona!5e0!3m2!1ses!2ses!4v1617182000!5m2!1ses!2ses"
+                        width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+                <div class="options-comments">
+                    <button>Opciones</button>
+                    <button>Comentarios</button>
+                </div>
+                <div class="contact-info">
+                    <h3>Contacto</h3>
+                    <p>Visita nuestro sitio web: <a href="https://www.festivalcineindependiente.com" target="_blank">www.festivalcineindependiente.com</a></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Reseñas -->
+        <section class="reviews">
+            <h2>Reseñas</h2>
+            <div class="review-item">
+                <div class="stars">
+                    ★★★★☆
+                </div>
+                <p>"Eventfinder me ayudó a descubrir eventos increíbles en Barcelona. ¡Fue una experiencia inolvidable!"</p>
+                <p class="autor">- Ana Gómez</p>
+            </div>
+            <div class="review-item">
+                <div class="stars">
+                    ★★★★☆
+                </div>
+                <p>"Gracias a Eventfinder encontré el concierto perfecto para mi fin de semana. ¡Muy recomendable!"</p>
+                <p class="autor">- Carlos Ruiz</p>
+            </div>
+            <div class="review-item">
+                <div class="stars">
+                    ★★★★★
+                </div>
+                <p>"La feria de arte fue espectacular, todo gracias a Eventfinder por facilitar la información."</p>
+                <p class="autor">- Laura Martínez</p>
+            </div>
+        </section>
+
+        <!-- Sección de Sobre Nosotros -->
+        <section class="about-us">
+            <h2>Sobre Nosotros</h2>
+            <p>Siendo estudiantes de informática, estábamos solos y éramos unos antisocials, pero gracias a EventFinder, ahora podemos encontrar cosas que hacer. Nuestra visión es conectar a organizadores de eventos con usuarios interesados, promoviendo actividades de todo tipo. Nuestra misión es conectar a las personas con eventos que les apasionan, permitiéndoles vivir momentos inolvidables y crear experiencias únicas.</p>
+        </section>
+
+        <!-- Sección de Contacto -->
+        <section class="contact-section">
+            <h2>Contacto</h2>
+            <p>Email: contacto@eventfinder.com</p>
+            <p>Teléfono: +34 123 456 789</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Eventfinder. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
